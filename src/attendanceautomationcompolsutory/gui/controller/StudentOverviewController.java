@@ -21,6 +21,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitMenuButton;
 import javafx.stage.Stage;
@@ -46,6 +47,8 @@ public class StudentOverviewController implements Initializable {
     private MenuItem class2 = new MenuItem("SDE");
     private MenuItem class3 = new MenuItem("ITO");
     private MenuItem class4 = new MenuItem("DBOS");
+    @FXML
+    private PieChart pieChart;
 
     /**
      * Initializes the controller class.
@@ -68,16 +71,21 @@ public class StudentOverviewController implements Initializable {
         ObservableList<MenuItem> obssubjects = FXCollections.observableArrayList();
         obssubjects.setAll(subjects);
         classesdropdown.getItems().setAll(obssubjects);
+        
+        //Piechart
+      
+        ObservableList<PieChart.Data> pieChartData
+                = FXCollections.observableArrayList(
+                        new PieChart.Data("Marked Attendance", 34),
+                        new PieChart.Data("Absence", 66));
+        pieChart.setData(pieChartData);
+
+    
 
     }
 
-    @FXML
-    private void previous(ActionEvent event) {
-    }
+    
 
-    @FXML
-    private void next(ActionEvent event) {
-    }
 
     @FXML
     private void goToLogin(ActionEvent event) {
