@@ -61,7 +61,6 @@ public class LoginController implements Initializable {
 
         if (validate(name, pass)) {
             if (authenticate(name, pass)) {
-                System.out.println("logged as ");
                 mainWindow(event);
             }
         }
@@ -82,7 +81,6 @@ public class LoginController implements Initializable {
     private boolean authenticate(String name, String pass) {
         Hash hash = new Hash();
         String hashed = hash.hashPass(pass);
-        System.out.println(name+" "+hashed);
         boolean auth = bll.authenticate(name, hashed);
 
         if (auth == true) {
@@ -104,8 +102,6 @@ public class LoginController implements Initializable {
 
     private void mainWindow(ActionEvent event) {
         try {
-//          FXMLLoader loader = new FXMLLoader(getClass().getResource("/attendanceautomation/gui/view/login.fxml"));
-//          Parent root = loader.load();
             FXMLLoader loader;
             Parent root = null;
             
