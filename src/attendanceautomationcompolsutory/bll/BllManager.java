@@ -19,4 +19,14 @@ public class BllManager implements IBllFacade {
         return auth.authenticateUser(mail, pass);
     }
 
+    @Override
+    public boolean emailExist(String mail) {
+        return auth.emailExist(mail);
+    }
+
+    @Override
+    public void setPass(String mail, String newPass) {
+        auth.setPass(mail, newPass);
+    }
+
 }

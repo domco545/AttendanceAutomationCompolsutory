@@ -11,5 +11,9 @@ package attendanceautomationcompolsutory.bll;
  */
 public interface IBllFacade {
     public boolean authenticate(String mail, String pass);
+
+    public boolean emailExist(String mail);
+
+    public void setPass(String text, String newPass);
     
 }

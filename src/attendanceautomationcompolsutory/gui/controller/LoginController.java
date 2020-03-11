@@ -15,6 +15,7 @@ import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,6 +29,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
+import javax.mail.*;
+import javax.mail.internet.*;
 
 public class LoginController implements Initializable {
 
@@ -98,13 +101,73 @@ public class LoginController implements Initializable {
 
     @FXML
     private void actionForgotpass(ActionEvent event) throws IOException {
+        if (txtName.getText().isEmpty()) {
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.setTitle("forgot password");
+            alert.setHeaderText("Please fill email if you want to reset password");
+
+            alert.showAndWait();
+            return;
+        }
+
+        if (bll.emailExist(txtName.getText())) {
+            Hash hash = new Hash();
+            String newPass = generateString();
+            String hashedPass = hash.hashPass(newPass);
+
+            bll.setPass(txtName.getText(), hashedPass);
+            sendMail(txtName.getText(), newPass);
+        }
+
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("new password");
+        alert.setHeaderText("New password was sent to your email");
+
+        alert.showAndWait();
+    }
+
+    private void sendMail(String mail, String newPass) {
+        // Set up the SMTP server.
+        java.util.Properties props = new java.util.Properties();
+        props.put("mail.smtp.host", "smtp.myisp.com");
+        Session session = Session.getDefaultInstance(props, null);
+
+        // Construct the message
+        String to = mail;
+        String from = "bot@easv.dk";
+        String subject = "password reset";
+        Message msg = new MimeMessage(session);
+        try {
+            msg.setFrom(new InternetAddress(from));
+            msg.setRecipient(Message.RecipientType.TO, new InternetAddress(to));
+            msg.setSubject(subject);
+            msg.setText("new password is: " + newPass);
+
+            // Send the message.
+            Transport.send(msg);
+        } catch (MessagingException e) {
+            System.out.println(e);
+        }
+    }
+
+    private String generateString() {
+        int leftLimit = 97; // letter 'a'
+        int rightLimit = 122; // letter 'z'
+        int targetStringLength = 10;
+        Random random = new Random();
+
+        String generatedString = random.ints(leftLimit, rightLimit + 1)
+                .limit(targetStringLength)
+                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                .toString();
+        return generatedString;
     }
 
     private void mainWindow(ActionEvent event) {
         try {
             FXMLLoader loader;
             Parent root = null;
-            
+
             if (user.rights == 1) {
                 loader = new FXMLLoader(getClass().getResource("/attendanceautomationcompolsutory/gui/view/StudentMain.fxml"));
                 root = loader.load();

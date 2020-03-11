@@ -22,21 +22,21 @@ public class AuthenticateDB {
 
     DBConnection db = new DBConnection();
 
-    public boolean authenticateUser(String mail, String pass){
+    public boolean authenticateUser(String mail, String pass) {
         try (Connection con = db.getConnection()) {
             String sql = "SELECT * FROM Person WHERE email = ? AND password = ?";
             PreparedStatement pstmt = con.prepareStatement(sql);
             pstmt.setString(1, mail);
             pstmt.setString(2, pass);
             ResultSet rs = pstmt.executeQuery();
-            
-            if(rs.next()){
+
+            if (rs.next()) {
                 int id = rs.getInt("id");
                 String fName = rs.getString("fName");
                 String lName = rs.getString("lName");
                 String email = rs.getString("email");
                 int rights = rs.getInt("access_level");
-                
+
                 LoggedUser.init(id, fName, lName, email, rights);
                 return true;
             }
@@ -46,5 +46,39 @@ public class AuthenticateDB {
             Logger.getLogger(AuthenticateDB.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
+    }
+
+    public boolean emailExist(String mail) {
+        try (Connection con = db.getConnection()) {
+            String sql = "SELECT email FROM Person WHERE email = ?";
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, mail);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLServerException ex) {
+            Logger.getLogger(AuthenticateDB.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(AuthenticateDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    public void setPass(String mail, String newPass) {
+        try(Connection con = db.getConnection()){
+            String sql = "UPDATE Person SET password = ? WHERE email = ?";
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, newPass);
+            pstmt.setString(2, mail);
+            pstmt.executeUpdate();
+        } catch (SQLServerException ex) {
+            Logger.getLogger(AuthenticateDB.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(AuthenticateDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

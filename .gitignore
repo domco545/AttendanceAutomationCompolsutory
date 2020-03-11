@@ -17,6 +17,8 @@
 
 # Package Files #
 *.jar
+!mssql-jdbc-6.4.0.jre9.jar
+!javax.mail.jar
 *.war
 *.nar
 *.ear
