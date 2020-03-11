@@ -1,0 +1,64 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+
+.bg{
+    
+    -fx-background-color: #CBE2F5;
+}
+.button
+{
+    -fx-border-color: #1678C6;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    
+}
+.side{
+  
+    -fx-background-color: #7793B1;
+}
+.button:hover
+{
+    -fx-background-color: #2588D7;
+    -fx-transition: width 1s;
+    -fx-font-size: 12.5;
+    
+    
+}
+#d
+{
+    
+    -fx-border-color: #3590D9;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+}
+#l
+{
+    -fx-underline: true; 
+}
+.first{
+    
+    -fx-background-color: white;
+}
+.second{
+    -fx-background-color: #CBE2F5;
+    -fx-text-fill:#CBE2F5;
+}
+#choice
+{
+    -fx-border-color: #3590D9;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+}
+
+#confirm:hover
+{
+    -fx-background-color: #2588D7;
+    -fx-transition: width 1s;
+    -fx-font-size: 29;
+}
+
+
+
+

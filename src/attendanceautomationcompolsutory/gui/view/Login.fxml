@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXRadioButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import java.net.URL?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="300.0" prefWidth="300.0" styleClass="bg" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendanceautomation.gui.controller.LoginController">
+    <stylesheets>
+        <URL value="@login.css" />
+    </stylesheets>
+   <children>
+      <ImageView fitHeight="99.0" fitWidth="120.0" layoutX="200.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="187.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="201.0" AnchorPane.topAnchor="14.0">
+         <image>
+            <Image url="@../../../res/img/easv-logo.png" />
+         </image>
+      </ImageView>
+      <JFXTextField fx:id="txtName" layoutX="160.0" layoutY="137.0" prefHeight="25.0" prefWidth="179.0" promptText="User Name" />
+      <JFXRadioButton fx:id="radioRemember" layoutX="233.0" layoutY="254.0" text="Remember me" />
+      <JFXButton fx:id="btnLogin" layoutX="160.0" layoutY="216.0" onAction="#actionLogin" text="Login" />
+      <JFXPasswordField fx:id="txtPass" layoutX="160.0" layoutY="180.0" prefHeight="25.0" prefWidth="179.0" promptText="Password" />
+      <JFXButton layoutX="233.0" layoutY="216.0" onAction="#actionForgotpass" text="Forgot password" />
+   </children>
+</AnchorPane>
