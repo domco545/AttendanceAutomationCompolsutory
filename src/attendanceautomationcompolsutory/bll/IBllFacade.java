@@ -10,5 +10,6 @@ package attendanceautomationcompolsutory.bll;
  * @author domin
  */
 public interface IBllFacade {
+    public boolean authenticate(String mail, String pass);
     
 }

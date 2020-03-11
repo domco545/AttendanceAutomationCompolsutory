@@ -5,13 +5,16 @@
  */
 package attendanceautomationcompolsutory.gui.controller;
 
+import attendanceautomationcompolsutory.Hash;
+import attendanceautomationcompolsutory.be.LoggedUser;
+import attendanceautomationcompolsutory.bll.BllManager;
+import attendanceautomationcompolsutory.bll.IBllFacade;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
 import java.net.URL;
-import java.security.MessageDigest;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,18 +27,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-/**
- * FXML Controller class
- *
- * @author saraf
- */
 public class LoginController implements Initializable {
 
-    //BllFacade bll = new BllManager();
-    //User loggedUser;
+    IBllFacade bll = new BllManager();
+    LoggedUser user;
 
     @FXML
     private JFXTextField txtName;
@@ -83,64 +80,45 @@ public class LoginController implements Initializable {
     }
 
     private boolean authenticate(String name, String pass) {
-        String hashed = hashPass(pass);
-        //loggedUser = bll.authenticate(name, hashed);
+        Hash hash = new Hash();
+        String hashed = hash.hashPass(pass);
+        System.out.println(name+" "+hashed);
+        boolean auth = bll.authenticate(name, hashed);
 
-//        if (loggedUser.getId() == -1) {
-//            Alert alert = new Alert(AlertType.WARNING);
-//            alert.setTitle("Login");
-//            alert.setHeaderText("Wrong name or password");
-//
-//            alert.showAndWait();
-//            return false;
-//        }
-        return true;
-    }
+        if (auth == true) {
+            user = LoggedUser.getInstance();
+            return true;
+        } else {
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.setTitle("Login");
+            alert.setHeaderText("Wrong name or password");
 
-    private String hashPass(String pass) {
-        try {
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            byte[] hash = digest.digest(pass.getBytes("UTF-8"));
-            StringBuffer hexString = new StringBuffer();
-
-            for (int i = 0; i < hash.length; i++) {
-                String hex = Integer.toHexString(0xff & hash[i]);
-                if (hex.length() == 1) {
-                    hexString.append('0');
-                }
-                hexString.append(hex);
-            }
-
-            return hexString.toString();
-        } catch (Exception ex) {
-            throw new RuntimeException(ex);
+            alert.showAndWait();
+            return false;
         }
     }
 
     @FXML
     private void actionForgotpass(ActionEvent event) throws IOException {
     }
-    
-    private void mainWindow(ActionEvent event){
-        try{
-            FXMLLoader loader= new FXMLLoader(getClass().getResource("/attendanceautomation/gui/view/Main.fxml"));
-            Parent root = loader.load();
+
+    private void mainWindow(ActionEvent event) {
+        try {
+//          FXMLLoader loader = new FXMLLoader(getClass().getResource("/attendanceautomation/gui/view/login.fxml"));
+//          Parent root = loader.load();
+            FXMLLoader loader;
+            Parent root = null;
             
-//            if(loggedUser.getPermissionGroup() == 1){
-//                loader = new FXMLLoader(getClass().getResource("/attendanceautomation/gui/view/StudentMain.fxml"));
-//                root=loader.load();
-//                StudentMainController smc = loader.getController();
-//                smc.setUser(loggedUser);
-//            }else if(loggedUser.getPermissionGroup() == 2){
-//                loader = new FXMLLoader(getClass().getResource("/attendanceautomation/gui/view/TeacherMain.fxml"));
-//                root = loader.load();
-//                TeacherMainController tmc = loader.getController();
-//                tmc.setUser(loggedUser);
-//            }
-            
+            if (user.rights == 1) {
+                loader = new FXMLLoader(getClass().getResource("/attendanceautomationcompolsutory/gui/view/StudentMain.fxml"));
+                root = loader.load();
+            } else if (user.rights == 2) {
+                loader = new FXMLLoader(getClass().getResource("/attendanceautomationcompolsutory/gui/view/TeacherMain.fxml"));
+                root = loader.load();
+            }
             Scene scene = new Scene(root);
 
-            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(scene);
             stage.show();
         } catch (IOException ex) {
