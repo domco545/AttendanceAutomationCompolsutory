@@ -5,10 +5,14 @@
  */
 package attendanceautomationcompolsutory.dal;
 
+import attendanceautomationcompolsutory.be.Student;
+import java.util.List;
+
 /**
  *
  * @author domin
  */
 public interface ITeacherDB {
+    public List<Student> getStudentData();
     
 }

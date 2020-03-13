@@ -5,7 +5,18 @@
  */
 package attendanceautomationcompolsutory.dal;
 
+import attendanceautomationcompolsutory.be.Student;
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.AbstractList;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -13,13 +24,28 @@ import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
  */
 public class TeacherDB implements ITeacherDB {
 
-    SQLServerDataSource ds = new SQLServerDataSource();
+    DBConnection db = new DBConnection();
 
-    public TeacherDB() {
-        ds.setDatabaseName("AttendanceGentleman");
-        ds.setUser("CSe19B_3");
-        ds.setPassword("CSe19B_3");
-        ds.setPortNumber(1433);
-        ds.setServerName("10.176.111.31");
+    public List<Student> getStudentData() {
+        try ( Connection con = db.getConnection()) {
+            List<Student> allstudents = new ArrayList();
+            String sql = "SELECT Person.id, Person.fname , Person.lname FROM Person WHERE access_level=1";
+            Statement s = con.createStatement();
+            ResultSet r = s.executeQuery(sql);
+            while (r.next()) {
+                int id = r.getInt("id");
+                String fname = r.getString("fname");
+                String lname = r.getString("lname");
+                Student student = new Student(id, fname, lname);
+                allstudents.add(student);
+            }
+            return allstudents;
+        } catch (SQLServerException ex) {
+            Logger.getLogger(TeacherDB.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(TeacherDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
+
 }
