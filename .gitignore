@@ -40,3 +40,4 @@ nbdist/
 .nb-gradle/
 
 # End of https://www.gitignore.io/api/java,netbeans
+src/attendanceautomationcompolsutory/AttendanceAutomationCompolsutory.java
