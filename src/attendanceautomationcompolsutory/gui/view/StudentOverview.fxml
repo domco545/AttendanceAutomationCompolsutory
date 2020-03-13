@@ -11,14 +11,12 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="491.0" prefWidth="625.0" styleClass="bg" stylesheets="@login.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendanceautomationcompolsutory.gui.controller.StudentOverviewController">
 <children>
       <JFXTreeTableView layoutX="385.0" layoutY="14.0" prefHeight="332.0" prefWidth="226.0" AnchorPane.bottomAnchor="145.0" AnchorPane.rightAnchor="14.0">
          <columns>
-            <TreeTableColumn prefWidth="75.0" text="ClassName" />
-            <TreeTableColumn prefWidth="75.0" styleClass="second" text="Present/Absent" />
-            <TreeTableColumn prefWidth="75.0" text="\%" />
+            <TreeTableColumn prefWidth="130.0" text="Date" />
+            <TreeTableColumn prefWidth="95.0" styleClass="second" text="Present/Absent" />
          </columns>
       </JFXTreeTableView>
       <GridPane layoutX="201.0" layoutY="14.0" prefHeight="120.0" prefWidth="85.0" AnchorPane.leftAnchor="201.0">
@@ -36,12 +34,6 @@
       <JFXButton layoutX="94.0" layoutY="340.0" onAction="#goBack" text="Back" AnchorPane.bottomAnchor="30.4" AnchorPane.leftAnchor="94.0" />
       <PieChart fx:id="pieChart" layoutX="8.0" layoutY="7.0" prefHeight="345.0" prefWidth="273.0" AnchorPane.leftAnchor="8.0" AnchorPane.topAnchor="7.0" />
       <SplitMenuButton id="choice" fx:id="classesdropdown" layoutX="294.0" layoutY="10.0" mnemonicParsing="false" text="Classes">
-        <items>
-          <MenuItem mnemonicParsing="false" text="Action 1" />
-          <MenuItem mnemonicParsing="false" text="Action 2" />
-        </items>
-      </SplitMenuButton>
-      <SplitMenuButton id="choice" fx:id="periodsdropdown" layoutX="316.0" layoutY="43.0" mnemonicParsing="false" text="All">
         <items>
           <MenuItem mnemonicParsing="false" text="Action 1" />
           <MenuItem mnemonicParsing="false" text="Action 2" />
