@@ -15,8 +15,8 @@
 <children>
       <JFXTreeTableView layoutX="385.0" layoutY="14.0" prefHeight="332.0" prefWidth="226.0" AnchorPane.bottomAnchor="145.0" AnchorPane.rightAnchor="14.0">
          <columns>
-            <TreeTableColumn prefWidth="130.0" text="Date" />
-            <TreeTableColumn prefWidth="95.0" styleClass="second" text="Present/Absent" />
+            <TreeTableColumn fx:id="collumDate" prefWidth="130.0" text="Date" />
+            <TreeTableColumn fx:id="collumStudentStautes" prefWidth="95.0" styleClass="second" text="Present/Absent" />
          </columns>
       </JFXTreeTableView>
       <GridPane layoutX="201.0" layoutY="14.0" prefHeight="120.0" prefWidth="85.0" AnchorPane.leftAnchor="201.0">

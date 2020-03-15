@@ -24,6 +24,7 @@ import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitMenuButton;
+import javafx.scene.control.TreeTableColumn;
 import javafx.stage.Stage;
 import javax.swing.JMenuItem;
 
@@ -36,7 +37,6 @@ public class StudentOverviewController implements Initializable {
 
     @FXML
     private SplitMenuButton classesdropdown;
-    @FXML
     private SplitMenuButton periodsdropdown;
 
     private MenuItem weeks = new MenuItem("weeks");
@@ -49,6 +49,10 @@ public class StudentOverviewController implements Initializable {
     private MenuItem class4 = new MenuItem("DBOS");
     @FXML
     private PieChart pieChart;
+    @FXML
+    private TreeTableColumn<?, ?> collumDate;
+    @FXML
+    private TreeTableColumn<?, ?> collumStudentStautes;
 
     /**
      * Initializes the controller class.
