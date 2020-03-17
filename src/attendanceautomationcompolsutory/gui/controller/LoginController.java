@@ -58,7 +58,7 @@ public class LoginController implements Initializable {
     }
 
     @FXML
-    private void actionLogin(ActionEvent event) {
+    private void actionLogin(ActionEvent event) throws Exception {
         String name = txtName.getText();
         String pass = txtPass.getText();
 
@@ -163,17 +163,22 @@ public class LoginController implements Initializable {
         return generatedString;
     }
 
-    private void mainWindow(ActionEvent event) {
+    private void mainWindow(ActionEvent event) throws Exception {
         try {
             FXMLLoader loader;
             Parent root = null;
 
-            if (user.rights == 1) {
-                loader = new FXMLLoader(getClass().getResource("/attendanceautomationcompolsutory/gui/view/StudentMain.fxml"));
-                root = loader.load();
-            } else if (user.rights == 2) {
-                loader = new FXMLLoader(getClass().getResource("/attendanceautomationcompolsutory/gui/view/TeacherMain.fxml"));
-                root = loader.load();
+            switch (user.rights) {
+                case 1:
+                    loader = new FXMLLoader(getClass().getResource("/attendanceautomationcompolsutory/gui/view/StudentMain.fxml"));
+                    root = loader.load();
+                    break;
+                case 2:
+                    loader = new FXMLLoader(getClass().getResource("/attendanceautomationcompolsutory/gui/view/TeacherMain.fxml"));
+                    root = loader.load();
+                    break;
+                default:
+                    throw new Exception("User rights unrecognized");
             }
             Scene scene = new Scene(root);
 

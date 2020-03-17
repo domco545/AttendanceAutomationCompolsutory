@@ -44,13 +44,14 @@ import javafx.util.Callback;
 public class TeacherMainController implements Initializable {
 
     @FXML
-    private JFXTreeTableView<Student> tableview;
+    //private JFXTreeTableView<Student> tableview;
     //@FXML
     //private TreeTableColumn<Student, Integer> id;
-    @FXML
-    private TreeTableColumn<Student, String> fname;
-    @FXML
-    private TreeTableColumn<Student, String> lname;
+    
+//    @FXML
+//    private TreeTableColumn<Student, String> fname;
+//    @FXML
+//    private TreeTableColumn<Student, String> lname;
     ITeacherDB Iteacher = new TeacherManager();
 
     private ObservableList<Student> obsStudents = FXCollections.observableArrayList(Iteacher.getStudentData());
@@ -74,28 +75,28 @@ public class TeacherMainController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         // id  = new JFXTreeTableColumn<>("id");
-        fname = new JFXTreeTableColumn<>("fname");
-        lname = new JFXTreeTableColumn<>("lname");
-
-        fname.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<Student, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<Student, String> param) {
-                return param.getValue().getValue().nameProperty();
-
-            }
-        });
-        lname.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<Student, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<Student, String> param) {
-                return param.getValue().getValue().lnameProperty();
-
-            }
-        });
-
-        TreeItem<Student> root = new RecursiveTreeItem<Student>(obsStudents, RecursiveTreeObject::getChildren);
-        tableview.getColumns().setAll(fname, lname);
-        tableview.setRoot(root);
-        tableview.setShowRoot(false);
+//        fname = new JFXTreeTableColumn<>("fname");
+//        lname = new JFXTreeTableColumn<>("lname");
+//
+//        fname.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<Student, String>, ObservableValue<String>>() {
+//            @Override
+//            public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<Student, String> param) {
+//                return param.getValue().getValue().nameProperty();
+//
+//            }
+//        });
+//        lname.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<Student, String>, ObservableValue<String>>() {
+//            @Override
+//            public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<Student, String> param) {
+//                return param.getValue().getValue().lnameProperty();
+//
+//            }
+//        });
+//
+//        TreeItem<Student> root = new RecursiveTreeItem<Student>(obsStudents, RecursiveTreeObject::getChildren);
+//        tableview.getColumns().setAll(fname, lname);
+//        tableview.setRoot(root);
+//        tableview.setShowRoot(false);
         
         
         LblEmail.setText(Iteacher.getTeacherMail(student.getId()));

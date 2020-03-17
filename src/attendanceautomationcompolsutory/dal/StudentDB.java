@@ -13,15 +13,6 @@ import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
  */
 public class StudentDB implements IStudentDB {
 
-    SQLServerDataSource ds = new SQLServerDataSource();
+    DBConnection db = new DBConnection();
 
-    public StudentDB() {
-        ds.setDatabaseName("AttendanceGentleman");
-        ds.setUser("CSe19B_3");
-        ds.setPassword("CSe19B_3");
-        ds.setPortNumber(1433);
-        ds.setServerName("10.176.111.31");
-    }
-
-    
 }

@@ -31,8 +31,6 @@ import javafx.stage.Stage;
  * @author domin
  */
 public class StudentMainController implements Initializable {
-
-    private Label lblId;
     @FXML
     private Label lblName;
     @FXML
@@ -51,9 +49,9 @@ public class StudentMainController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       /* LoggedUser user = LoggedUser.getInstance();
-        lblId.setText(user.id+"");
-        lblName.setText(user.fNmae+" "+user.lName);*/
+        LoggedUser user = LoggedUser.getInstance();
+        lblName.setText(user.fNmae + " " + user.lName);
+        lblEmail.setText(user.email);
     }   
 
 

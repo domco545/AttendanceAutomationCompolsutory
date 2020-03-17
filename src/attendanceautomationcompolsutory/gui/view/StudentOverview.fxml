@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="491.0" prefWidth="625.0" styleClass="bg" stylesheets="@login.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendanceautomationcompolsutory.gui.controller.StudentOverviewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="491.0" prefWidth="625.0" styleClass="bg" stylesheets="@main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendanceautomationcompolsutory.gui.controller.StudentOverviewController">
 <children>
       <JFXTreeTableView layoutX="385.0" layoutY="14.0" prefHeight="332.0" prefWidth="226.0" AnchorPane.bottomAnchor="145.0" AnchorPane.rightAnchor="14.0">
          <columns>

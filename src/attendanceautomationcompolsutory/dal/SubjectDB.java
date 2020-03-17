@@ -23,19 +23,10 @@ import java.util.logging.Logger;
  */
 public class SubjectDB {
 
-    private SQLServerDataSource ds;
-    private DBConnection db;
-
-    {
-        db = new DBConnection();
-        ds = new SQLServerDataSource();
-    }
-
-    public SubjectDB() {
-    }
+    DBConnection db = new DBConnection();
 
     public List<Subject> getAllSubject() {
-        try ( Connection con = db.getConnection()) {
+        try (Connection con = db.getConnection()) {
             List<Subject> subjects = new ArrayList();
             String sql = "SELECT * FROM Subject";
             Statement s = con.createStatement();
@@ -43,7 +34,7 @@ public class SubjectDB {
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
-                Subject subject = new Subject(name,id);
+                Subject subject = new Subject(name, id);
                 subjects.add(subject);
             }
             return subjects;
