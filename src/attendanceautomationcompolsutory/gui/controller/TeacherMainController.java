@@ -99,6 +99,7 @@ public class TeacherMainController implements Initializable {
         
         
         LblEmail.setText(Iteacher.getTeacherMail(student.getId()));
+        LblName.setText(Iteacher.getTeacherName(student.getId()));
     }
 
     @FXML
