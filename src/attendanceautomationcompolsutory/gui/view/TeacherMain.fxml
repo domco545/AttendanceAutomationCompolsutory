@@ -14,15 +14,15 @@
    <children>
       <JFXTreeTableView fx:id="tableview" layoutX="366.0" prefHeight="480.0" prefWidth="277.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="-3.6000000000000227" AnchorPane.topAnchor="0.0">
          <columns>
-            <TreeTableColumn prefWidth="70.4000244140625" styleClass="first" text="Name" />
-            <TreeTableColumn prefWidth="69.5999755859375" styleClass="second" text="SCO" />
+            <TreeTableColumn fx:id="fname" prefWidth="70.4000244140625" styleClass="first" text="Name" />
+            <TreeTableColumn fx:id="lname" prefWidth="69.5999755859375" styleClass="second" text="SCO" />
             <TreeTableColumn prefWidth="68.0" styleClass="first" text="SDE" />
             <TreeTableColumn prefWidth="70.4000244140625" styleClass="second" text="ITO" />
          </columns>
       </JFXTreeTableView>
-      <JFXButton layoutX="229.0" layoutY="440.0" prefHeight="26.0" prefWidth="92.0" text="Detail" AnchorPane.bottomAnchor="14.0" />
-      <Label id="l" layoutX="247.0" layoutY="60.0" text="Current Date" AnchorPane.leftAnchor="247.0" />
-      <SplitMenuButton id="d" layoutX="242.0" layoutY="227.0" mnemonicParsing="false" text="Classes">
+      <JFXButton fx:id="BtnDetail" layoutX="229.0" layoutY="440.0" onAction="#loadStudentDetail" prefHeight="26.0" prefWidth="92.0" text="Detail" AnchorPane.bottomAnchor="14.0" />
+      <Label id="l" fx:id="LblCurrentDay" layoutX="247.0" layoutY="60.0" text="Current Date" AnchorPane.leftAnchor="247.0" />
+      <SplitMenuButton id="d" fx:id="selectClassDropdown" layoutX="242.0" layoutY="227.0" mnemonicParsing="false" text="Classes">
         <items>
           <MenuItem mnemonicParsing="false" text="Action 1" />
           <MenuItem mnemonicParsing="false" text="Action 2" />
@@ -31,10 +31,10 @@
       <Pane layoutY="2.0" prefHeight="480.0" prefWidth="166.0" styleClass="side" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <ImageView fitHeight="150.0" fitWidth="145.0" layoutX="14.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true" />
-            <Label layoutX="66.0" layoutY="184.0" text="Email" />
-            <Label layoutX="67.0" layoutY="201.0" text="Name" />
-            <JFXButton layoutX="31.0" layoutY="240.0" prefHeight="29.0" prefWidth="103.0" text="Class Overwiev" />
-            <JFXButton layoutX="32.0" layoutY="430.0" onAction="#actionLogout" prefHeight="26.0" prefWidth="92.0" text="Log out" />
+            <Label fx:id="LblEmail" layoutX="66.0" layoutY="184.0" text="Email" />
+            <Label fx:id="LblName" layoutX="67.0" layoutY="201.0" text="Name" />
+            <JFXButton fx:id="BtnClassOverview" layoutX="31.0" layoutY="240.0" onAction="#loadClassOverview" prefHeight="29.0" prefWidth="103.0" text="Class Overwiev" />
+            <JFXButton fx:id="BtnLogout" layoutX="32.0" layoutY="430.0" onAction="#actionLogout" prefHeight="26.0" prefWidth="92.0" text="Log out" />
          </children>
       </Pane>
    </children>

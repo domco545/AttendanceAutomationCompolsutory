@@ -9,6 +9,7 @@ import attendanceautomationcompolsutory.be.Student;
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -40,6 +41,42 @@ public class TeacherDB implements ITeacherDB {
                 allstudents.add(student);
             }
             return allstudents;
+        } catch (SQLServerException ex) {
+            Logger.getLogger(TeacherDB.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(TeacherDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    @Override
+    public String getTeacherMail(int id) {
+        try ( Connection con = db.getConnection()) {
+            String sql = "SELECT Person.email FROM Person WHERE id=? AND access_level=2";
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.setInt(1, id);
+            String mail = ""+pstmt.getResultSet();
+            return mail;
+            
+            
+        } catch (SQLServerException ex) {
+            Logger.getLogger(TeacherDB.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(TeacherDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    @Override
+    public String getTeacherName(int id) {
+         try ( Connection con = db.getConnection()) {
+            String sql = "SELECT Person.lname FROM Person WHERE id=? AND access_level=2";
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.setInt(1, id);
+            String mail = ""+pstmt.getResultSet();
+            return mail;
+            
+            
         } catch (SQLServerException ex) {
             Logger.getLogger(TeacherDB.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
