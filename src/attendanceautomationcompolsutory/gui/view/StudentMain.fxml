@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -14,10 +15,10 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="500.0" styleClass="bg" stylesheets="@main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendanceautomationcompolsutory.gui.controller.StudentMainController">
+<AnchorPane prefHeight="400.0" prefWidth="500.0" styleClass="bg" stylesheets="@login.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendanceautomationcompolsutory.gui.controller.StudentMainController">
    <children>
       <BorderPane layoutX="200.0" prefHeight="400.0" prefWidth="500.0">
-     
+         <top>
             <Text fx:id="lblDate" strokeType="OUTSIDE" strokeWidth="0.0" text="The Current Date" BorderPane.alignment="CENTER">
                <font>
                   <Font size="44.0" />
@@ -28,7 +29,7 @@
             </Text>
          </top>
          <bottom>
-            <JFXButton fx:id="btnConfirm" text="Confirm" BorderPane.alignment="CENTER">
+            <JFXButton id="confirm" fx:id="btnConfirm" text="Confirm" BorderPane.alignment="CENTER">
                <BorderPane.margin>
                   <Insets bottom="50.0" />
                </BorderPane.margin>
@@ -47,10 +48,10 @@
                 <RowConstraints maxHeight="136.0" minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <JFXToggleButton fx:id="btnSubjectOne" prefHeight="58.0" prefWidth="204.0" text="Subject 1" />
-                  <JFXToggleButton fx:id="btnSubjectThree" prefHeight="58.0" prefWidth="210.0" text="Subject 3" GridPane.rowIndex="1" />
-                  <JFXToggleButton fx:id="btnSubjectTwo" prefHeight="58.0" prefWidth="208.0" text="Subject 2" GridPane.columnIndex="1" />
-                  <JFXToggleButton fx:id="btnSubjectFour" prefHeight="58.0" prefWidth="222.0" text="Subject 4" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <JFXToggleButton prefHeight="58.0" prefWidth="204.0" text="Subject 1" />
+                  <JFXToggleButton prefHeight="58.0" prefWidth="210.0" text="Subject 3" GridPane.columnIndex="1" />
+                  <JFXToggleButton prefHeight="58.0" prefWidth="208.0" text="Subject 2" GridPane.rowIndex="1" />
+                  <JFXToggleButton prefHeight="58.0" prefWidth="222.0" text="Subject 4" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
                <BorderPane.margin>
                   <Insets top="75.0" />
@@ -60,19 +61,20 @@
       </BorderPane>
       <Pane maxWidth="200.0" prefWidth="200.0" styleClass="side" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <ImageView fx:id="imgProfile" fitHeight="100.0" fitWidth="100.0" layoutX="52.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="52.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../res/img/dummy-350x350.png" />
                </image>
             </ImageView>
-            <JFXButton layoutX="63.0" layoutY="211.0" onAction="#actionEditProfile" text="Edit Profile" />
-            <JFXButton layoutX="74.0" layoutY="250.0" onAction="#actionLogout" text="Log out" />
-            <Pane layoutX="9.0" layoutY="154.0" prefHeight="41.0" prefWidth="183.0">
+            <JFXButton fx:id="editProfileId" layoutX="63.0" layoutY="211.0" onAction="#studentEditProfileButton" text="Edit Profile" />
+            <JFXButton layoutX="70.0" layoutY="357.0" onAction="#actionLogout" text="Log out" />
+            <Pane layoutX="9.0" layoutY="154.0" prefHeight="53.0" prefWidth="183.0">
                <children>
-                  <Text fx:id="lblName" layoutX="76.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" textAlignment="CENTER" />
-                  <Text fx:id="lblEmail" layoutX="77.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" />
+                  <Label fx:id="lblName" layoutX="42.0" layoutY="6.0" prefHeight="17.0" prefWidth="100.0" text="Label" />
+                  <Label fx:id="lblEmail" layoutX="42.0" layoutY="31.0" prefHeight="17.0" prefWidth="100.0" text="Label" />
                </children>
             </Pane>
+            <JFXButton fx:id="studentOverviewBtn" layoutX="66.0" layoutY="250.0" onAction="#goToOverview" text="Overview" />
          </children>
       </Pane>
    </children>
