@@ -24,4 +24,14 @@ public class TeacherManager implements ITeacherDB {
         return allstudents;
     }
 
+    @Override
+    public String getTeacherMail(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getTeacherName(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }
