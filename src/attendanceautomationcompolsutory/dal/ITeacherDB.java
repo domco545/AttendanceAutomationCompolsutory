@@ -14,5 +14,7 @@ import java.util.List;
  */
 public interface ITeacherDB {
     public List<Student> getStudentData();
+    public String getTeacherMail(int id);
+    public String getTeacherName(int id);
     
 }
