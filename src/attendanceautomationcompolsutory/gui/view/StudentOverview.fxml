@@ -33,7 +33,7 @@
       <JFXButton layoutX="29.0" layoutY="340.0" onAction="#goToLogin" text="Log out" AnchorPane.bottomAnchor="30.4" AnchorPane.leftAnchor="29.0" />
       <JFXButton layoutX="94.0" layoutY="340.0" onAction="#goBack" text="Back" AnchorPane.bottomAnchor="30.4" AnchorPane.leftAnchor="94.0" />
       <PieChart fx:id="pieChart" layoutX="8.0" layoutY="7.0" prefHeight="345.0" prefWidth="273.0" AnchorPane.leftAnchor="8.0" AnchorPane.topAnchor="7.0" />
-      <SplitMenuButton id="choice" fx:id="classesdropdown" layoutX="294.0" layoutY="10.0" mnemonicParsing="false" text="Classes">
+      <SplitMenuButton id="choice" fx:id="classesdropdown" layoutX="294.0" layoutY="10.0" mnemonicParsing="false" onAction="#classDropDown" text="Classes">
         <items>
           <MenuItem mnemonicParsing="false" text="Action 1" />
           <MenuItem mnemonicParsing="false" text="Action 2" />

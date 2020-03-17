@@ -5,28 +5,21 @@
  */
 package attendanceautomationcompolsutory.gui.controller;
 
-import java.io.IOException;
+import attendanceautomationcompolsutory.be.Subject;
+import attendanceautomationcompolsutory.dal.SubjectDB;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TreeTableColumn;
-import javafx.stage.Stage;
-import javax.swing.JMenuItem;
 
 /**
  * FXML Controller class
@@ -42,11 +35,8 @@ public class StudentOverviewController implements Initializable {
     private MenuItem weeks = new MenuItem("weeks");
     private MenuItem months = new MenuItem("months");
     private MenuItem semesters = new MenuItem("semesters");
+    private List<MenuItem> subjectsMenuItem = new ArrayList();
 
-    private MenuItem class1 = new MenuItem("SCO");
-    private MenuItem class2 = new MenuItem("SDE");
-    private MenuItem class3 = new MenuItem("ITO");
-    private MenuItem class4 = new MenuItem("DBOS");
     @FXML
     private PieChart pieChart;
     @FXML
@@ -54,6 +44,14 @@ public class StudentOverviewController implements Initializable {
     @FXML
     private TreeTableColumn<?, ?> collumStudentStautes;
 
+     public StudentOverviewController() {
+       SubjectDB subjectDB = new SubjectDB();
+        List<Subject> subjects = subjectDB.getAllSubject();
+        for (Subject subject : subjects) {
+            MenuItem menuItem = new MenuItem(subject.getName());
+            subjectsMenuItem.add(menuItem);
+        }
+    }
     /**
      * Initializes the controller class.
      */
@@ -66,30 +64,23 @@ public class StudentOverviewController implements Initializable {
         ObservableList<MenuItem> obsperiods = FXCollections.observableArrayList();
         obsperiods.setAll(periods);
         periodsdropdown.getItems().setAll(obsperiods);
-
-        List<MenuItem> subjects = new ArrayList();
-        subjects.add(class1);
-        subjects.add(class2);
-        subjects.add(class3);
-        subjects.add(class4);
+        SubjectDB subjectDB = new SubjectDB();
+        List<Subject> subjects = subjectDB.getAllSubject();
+        for (Subject subject : subjects) {
+            MenuItem menuItem = new MenuItem(subject.getName());
+            subjectsMenuItem.add(menuItem);
+        }
         ObservableList<MenuItem> obssubjects = FXCollections.observableArrayList();
-        obssubjects.setAll(subjects);
+        obssubjects.setAll(subjectsMenuItem);
         classesdropdown.getItems().setAll(obssubjects);
-        
+
         //Piechart
-      
         ObservableList<PieChart.Data> pieChartData
                 = FXCollections.observableArrayList(
                         new PieChart.Data("Marked Attendance", 34),
                         new PieChart.Data("Absence", 66));
         pieChart.setData(pieChartData);
-
-    
-
     }
-
-    
-
 
     @FXML
     private void goToLogin(ActionEvent event) {
@@ -98,6 +89,11 @@ public class StudentOverviewController implements Initializable {
     @FXML
     private void goBack(ActionEvent event) {
     }
-    
-   
+
+    @FXML
+    private void classDropDown(ActionEvent event) {
+        MenuItem.MENU_VALIDATION_EVENT.getClass();
+
+    }
+
 }
