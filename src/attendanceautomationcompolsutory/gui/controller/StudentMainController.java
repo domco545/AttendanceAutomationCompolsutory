@@ -66,15 +66,22 @@ public class StudentMainController implements Initializable {
     @FXML
     private void goToOverview(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/attendanceautomation/gui/view/StudentOverview.fxml"));
-            Parent root = loader.load();
+            FXMLLoader loader;
+            Parent root = null;
+            // TO DO 
+            // Load the selected student's overview page
+            loader = new FXMLLoader(getClass().getResource("/attendanceautomationcompolsutory/gui/view/StudentOverview.fxml"));
+            root = loader.load();
+
             Scene scene = new Scene(root);
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(scene);
             stage.show();
         } catch (IOException ex) {
-            Logger.getLogger(StudentMainController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
-            
     }
-}
+    }
+        
+

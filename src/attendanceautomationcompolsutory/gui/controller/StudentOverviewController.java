@@ -45,12 +45,7 @@ public class StudentOverviewController implements Initializable {
     private TreeTableColumn<?, ?> collumStudentStautes;
 
      public StudentOverviewController() {
-       SubjectDB subjectDB = new SubjectDB();
-        List<Subject> subjects = subjectDB.getAllSubject();
-        for (Subject subject : subjects) {
-            MenuItem menuItem = new MenuItem(subject.getName());
-            subjectsMenuItem.add(menuItem);
-        }
+    
     }
     /**
      * Initializes the controller class.
@@ -63,7 +58,7 @@ public class StudentOverviewController implements Initializable {
         periods.add(semesters);
         ObservableList<MenuItem> obsperiods = FXCollections.observableArrayList();
         obsperiods.setAll(periods);
-        periodsdropdown.getItems().setAll(obsperiods);
+       // periodsdropdown.getItems().setAll(obsperiods);
         SubjectDB subjectDB = new SubjectDB();
         List<Subject> subjects = subjectDB.getAllSubject();
         for (Subject subject : subjects) {
@@ -94,6 +89,10 @@ public class StudentOverviewController implements Initializable {
     private void classDropDown(ActionEvent event) {
         MenuItem.MENU_VALIDATION_EVENT.getClass();
 
+    }
+
+    void setUser() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
