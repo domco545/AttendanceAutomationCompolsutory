@@ -10,6 +10,8 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXToggleButton;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -43,6 +45,14 @@ public class StudentMainController implements Initializable {
     private JFXButton editProfileId;
     @FXML
     private JFXButton studentOverviewBtn;
+    @FXML
+    private JFXToggleButton btnSubjectOne;
+    @FXML
+    private JFXToggleButton btnSubjectThree;
+    @FXML
+    private JFXToggleButton btnSubjectTwo;
+    @FXML
+    private JFXToggleButton btnSubjectFour;
 
     /**
      * Initializes the controller class.
@@ -53,7 +63,9 @@ public class StudentMainController implements Initializable {
         lblName.setText(user.fNmae + " " + user.lName);
         lblEmail.setText(user.email);
     }   
+    
 
+  
 
     @FXML
     private void actionLogout(ActionEvent event) {
@@ -76,5 +88,30 @@ public class StudentMainController implements Initializable {
             Logger.getLogger(StudentMainController.class.getName()).log(Level.SEVERE, null, ex);
         }
             
+    }
+    
+    private void btnChecker(ActionEvent event){
+    List<Integer> list = new ArrayList<Integer>();
+    if(btnSubjectOne.isPressed())
+    list.add(1);
+    else
+    list.add(0);
+        if(btnSubjectTwo.isPressed())
+    list.add(1);
+    else
+    list.add(0);
+            if(btnSubjectThree.isPressed())
+    list.add(1);
+    else
+    list.add(0);
+                if(btnSubjectFour.isPressed())
+    list.add(1);
+    else
+    list.add(0);
+                for (Integer integer : list) {
+                    System.out.println(integer+"");
+            
+        }
+          
     }
 }

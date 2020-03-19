@@ -43,15 +43,15 @@ import javafx.util.Callback;
  */
 public class TeacherMainController implements Initializable {
 
+  //  @FXML
+  //  private JFXTreeTableView<Student> tableview;
     @FXML
-    //private JFXTreeTableView<Student> tableview;
-    //@FXML
-    //private TreeTableColumn<Student, Integer> id;
+    private TreeTableColumn<Student, Integer> id;
     
-//    @FXML
-//    private TreeTableColumn<Student, String> fname;
-//    @FXML
-//    private TreeTableColumn<Student, String> lname;
+    @FXML
+    private TreeTableColumn<Student, String> fname;
+    @FXML
+    private TreeTableColumn<Student, String> lname;
     ITeacherDB Iteacher = new TeacherManager();
 
     private ObservableList<Student> obsStudents = FXCollections.observableArrayList(Iteacher.getStudentData());
@@ -73,8 +73,8 @@ public class TeacherMainController implements Initializable {
     Student student;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
-        // id  = new JFXTreeTableColumn<>("id");
+//
+//         id  = new JFXTreeTableColumn<>("id");
 //        fname = new JFXTreeTableColumn<>("fname");
 //        lname = new JFXTreeTableColumn<>("lname");
 //

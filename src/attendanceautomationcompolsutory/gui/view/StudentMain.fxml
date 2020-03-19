@@ -48,10 +48,10 @@
                 <RowConstraints maxHeight="136.0" minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <JFXToggleButton prefHeight="58.0" prefWidth="204.0" text="Subject 1" />
-                  <JFXToggleButton prefHeight="58.0" prefWidth="210.0" text="Subject 3" GridPane.columnIndex="1" />
-                  <JFXToggleButton prefHeight="58.0" prefWidth="208.0" text="Subject 2" GridPane.rowIndex="1" />
-                  <JFXToggleButton prefHeight="58.0" prefWidth="222.0" text="Subject 4" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <JFXToggleButton fx:id="btnSubjectOne" prefHeight="58.0" prefWidth="204.0" text="Subject 1" />
+                  <JFXToggleButton fx:id="btnSubjectThree" prefHeight="58.0" prefWidth="210.0" text="Subject 3" GridPane.columnIndex="1" />
+                  <JFXToggleButton fx:id="btnSubjectTwo" prefHeight="58.0" prefWidth="208.0" text="Subject 2" GridPane.rowIndex="1" />
+                  <JFXToggleButton fx:id="btnSubjectFour" prefHeight="58.0" prefWidth="222.0" text="Subject 4" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
                <BorderPane.margin>
                   <Insets top="75.0" />
