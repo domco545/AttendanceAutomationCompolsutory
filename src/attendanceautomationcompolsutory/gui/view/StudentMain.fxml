@@ -61,9 +61,9 @@
       </BorderPane>
       <Pane maxWidth="200.0" prefWidth="200.0" styleClass="side" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="52.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imgViewProfile" fitHeight="100.0" fitWidth="100.0" layoutX="52.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../res/img/dummy-350x350.png" />
+                  <Image url="@../../../res/img/easv-logo.png" />
                </image>
             </ImageView>
             <JFXButton fx:id="editProfileId" layoutX="63.0" layoutY="211.0" onAction="#studentEditProfileButton" text="Edit Profile" />

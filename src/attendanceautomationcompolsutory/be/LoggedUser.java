@@ -5,6 +5,9 @@
  */
 package attendanceautomationcompolsutory.be;
 
+import java.io.InputStream;
+import javafx.scene.image.Image;
+
 /**
  *
  * @author domin
@@ -17,21 +20,23 @@ public class LoggedUser {
     public String lName;
     public String email;
     public int rights;
+    public Image image;
 
-    private LoggedUser(int id, String fName, String lName, String email, int rights) {
+    private LoggedUser(int id, String fName, String lName, String email, int rights, InputStream image) {
         this.id = id;
         this.fNmae = fName;
         this.lName = lName;
         this.email = email;
         this.rights = rights;
+        this.image = new Image(image);
     }
 
-    public synchronized static LoggedUser init(int id, String fName, String lName, String email, int rights) {
+    public synchronized static LoggedUser init(int id, String fName, String lName, String email, int rights, InputStream image) {
         if (loggedUser != null) {
             throw new AssertionError("Already initialized");
         }
 
-        loggedUser = new LoggedUser(id, fName, lName, email, rights);
+        loggedUser = new LoggedUser(id, fName, lName, email, rights, image);
         return loggedUser;
     }
 
