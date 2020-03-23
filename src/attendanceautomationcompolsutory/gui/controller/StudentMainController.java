@@ -53,6 +53,8 @@ public class StudentMainController implements Initializable {
     private JFXToggleButton btnSubjectTwo;
     @FXML
     private JFXToggleButton btnSubjectFour;
+    @FXML
+    private ImageView imgViewProfile;
 
     /**
      * Initializes the controller class.
@@ -62,6 +64,7 @@ public class StudentMainController implements Initializable {
         LoggedUser user = LoggedUser.getInstance();
         lblName.setText(user.fNmae + " " + user.lName);
         lblEmail.setText(user.email);
+        imgViewProfile.setImage(user.image);
     }   
     
 

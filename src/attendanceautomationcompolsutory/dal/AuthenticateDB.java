@@ -7,6 +7,7 @@ package attendanceautomationcompolsutory.dal;
 
 import attendanceautomationcompolsutory.be.LoggedUser;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -24,7 +25,9 @@ public class AuthenticateDB {
 
     public boolean authenticateUser(String mail, String pass) {
         try (Connection con = db.getConnection()) {
-            String sql = "SELECT * FROM Person WHERE email = ? AND password = ?";
+            String sql = "SELECT p.*, pp.image FROM Person as p  \n"
+                    + "JOIN Profile_Pictures as pp ON p.id = pp.user_id\n"
+                    + "WHERE p.email = ? AND p.password = ?";
             PreparedStatement pstmt = con.prepareStatement(sql);
             pstmt.setString(1, mail);
             pstmt.setString(2, pass);
@@ -36,8 +39,9 @@ public class AuthenticateDB {
                 String lName = rs.getString("lName");
                 String email = rs.getString("email");
                 int rights = rs.getInt("access_level");
+                InputStream image = rs.getBinaryStream("image");
 
-                LoggedUser.init(id, fName, lName, email, rights);
+                LoggedUser.init(id, fName, lName, email, rights, image);
                 return true;
             }
         } catch (SQLServerException ex) {
@@ -69,7 +73,7 @@ public class AuthenticateDB {
     }
 
     public void setPass(String mail, String newPass) {
-        try(Connection con = db.getConnection()){
+        try (Connection con = db.getConnection()) {
             String sql = "UPDATE Person SET password = ? WHERE email = ?";
             PreparedStatement pstmt = con.prepareStatement(sql);
             pstmt.setString(1, newPass);
