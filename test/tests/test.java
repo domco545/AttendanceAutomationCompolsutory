@@ -1,4 +1,6 @@
-package attendanceautomationcompolsutory.tests.teacher;
+package tests;
+
+
 
 
 
@@ -8,6 +10,7 @@ package attendanceautomationcompolsutory.tests.teacher;
  * and open the template in the editor.
  */
 
+import attendanceautomationcompolsutory.be.Student;
 import attendanceautomationcompolsutory.dal.TeacherDB;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -21,7 +24,7 @@ import org.junit.Test;
  * @author narma
  */
 public class test {
-    
+    //private TeacherDB teacher;
     public test() {
     }
     
@@ -49,7 +52,12 @@ public class test {
      @Test
     public void testGetTeacherMail()
     {
-        TeacherDB teacher = new TeacherDB();
-        assertEquals("teacher@easv.dk",teacher.getTeacherMail(42));
+       TeacherDB teacher = new TeacherDB();
+       String exp = "teacher@easv.dk";
+       int id = 42;
+      String result = teacher.getTeacherMail(id);
+        assertEquals(exp,result);
+        
+        
     }
 }
