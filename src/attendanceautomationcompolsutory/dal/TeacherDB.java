@@ -30,13 +30,13 @@ public class TeacherDB implements ITeacherDB {
     public List<Student> getStudentData() {
         try ( Connection con = db.getConnection()) {
             List<Student> allstudents = new ArrayList();
-            String sql = "SELECT Person.id, Person.fname , Person.lname FROM Person WHERE access_level=1";
+            String sql = "SELECT Student.id , Student.firstName , Student.lastName FROM Student";
             Statement s = con.createStatement();
             ResultSet r = s.executeQuery(sql);
             while (r.next()) {
                 int id = r.getInt("id");
-                String fname = r.getString("fname");
-                String lname = r.getString("lname");
+                String fname = r.getString("firstName");
+                String lname = r.getString("lastName");
                 Student student = new Student(id, fname, lname);
                 allstudents.add(student);
             }
@@ -52,10 +52,9 @@ public class TeacherDB implements ITeacherDB {
     @Override
     public String getTeacherMail(int id) {
         try ( Connection con = db.getConnection()) {
-            String sql = "SELECT Person.email FROM Person WHERE id=? AND access_level=2";
-            PreparedStatement pstmt = con.prepareStatement(sql);
-            pstmt.setInt(1, id);
-            String mail = ""+pstmt.getResultSet();
+            String sql = "SELECT Teacher.email FROM Teacher";
+            Statement s = con.createStatement();
+            String mail = ""+s.getResultSet();
             return mail;
             
             
@@ -70,10 +69,9 @@ public class TeacherDB implements ITeacherDB {
     @Override
     public String getTeacherName(int id) {
          try ( Connection con = db.getConnection()) {
-            String sql = "SELECT Person.lname FROM Person WHERE id=? AND access_level=2";
-            PreparedStatement pstmt = con.prepareStatement(sql);
-            pstmt.setInt(1, id);
-            String mail = ""+pstmt.getResultSet();
+            String sql = "SELECT Teacher.lastName FROM Teacher";
+            Statement s = con.createStatement();
+            String mail = ""+s.getResultSet();
             return mail;
             
             

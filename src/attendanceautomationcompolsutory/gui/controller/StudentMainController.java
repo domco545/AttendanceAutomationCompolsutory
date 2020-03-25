@@ -122,5 +122,10 @@ public class StudentMainController implements Initializable {
         }
           
     }
+
+    @FXML
+    private void confirmAttendance(ActionEvent event) {
+        
+    }
 }
 

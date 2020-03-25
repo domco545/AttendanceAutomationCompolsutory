@@ -29,7 +29,7 @@
             </Text>
          </top>
          <bottom>
-            <JFXButton id="confirm" fx:id="btnConfirm" text="Confirm" BorderPane.alignment="CENTER">
+            <JFXButton id="confirm" fx:id="btnConfirm" onAction="#confirmAttendance" text="Confirm" BorderPane.alignment="CENTER">
                <BorderPane.margin>
                   <Insets bottom="50.0" />
                </BorderPane.margin>
