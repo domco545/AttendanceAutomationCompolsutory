@@ -15,10 +15,17 @@ import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import java.io.IOException;
+import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Stream;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -43,11 +50,11 @@ import javafx.util.Callback;
  */
 public class TeacherMainController implements Initializable {
 
-  //  @FXML
-  //  private JFXTreeTableView<Student> tableview;
+    //  @FXML
+    //  private JFXTreeTableView<Student> tableview;
     @FXML
     private TreeTableColumn<Student, Integer> id;
-    
+
     @FXML
     private TreeTableColumn<Student, String> fname;
     @FXML
@@ -71,9 +78,11 @@ public class TeacherMainController implements Initializable {
     private JFXButton BtnLogout;
 
     Student student;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-//
+
+        //
 //         id  = new JFXTreeTableColumn<>("id");
 //        fname = new JFXTreeTableColumn<>("fname");
 //        lname = new JFXTreeTableColumn<>("lname");
@@ -97,8 +106,7 @@ public class TeacherMainController implements Initializable {
 //        tableview.getColumns().setAll(fname, lname);
 //        tableview.setRoot(root);
 //        tableview.setShowRoot(false);
-        
-        
+
         LblEmail.setText(Iteacher.getTeacherMail(student.getId()));
         LblName.setText(Iteacher.getTeacherName(student.getId()));
     }
