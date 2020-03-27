@@ -135,14 +135,22 @@ public class StudentMainController implements Initializable {
 
     private void checkVPN() {
         // not 100% sure this works all the time 
+        //doesnt work for school vpn client 
+        //it creates ethernet interface instead of vpn interfaces
+        boolean found = false;
         try {
             for (NetworkInterface networkInterface : Collections.list(NetworkInterface.getNetworkInterfaces())) {
                 if (networkInterface.isUp()) {
                     String iName = networkInterface.getName();
+                    System.out.println(iName);
                     if(iName.contains("tun") || iName.contains("ppp") || iName.contains("pptp")){
                         System.out.println("VPN connection found");
+                        found = true;
                     }
                 }
+            }
+            if(found == false){
+                System.out.println("VPN connection not found");
             }
         } catch (Exception ex) {
             System.out.println("No interfaces found");
