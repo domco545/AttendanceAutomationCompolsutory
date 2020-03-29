@@ -39,5 +39,6 @@
          </columns>
       </JFXTreeTableView>
       <PieChart layoutX="521.0" layoutY="252.0" prefHeight="204.0" prefWidth="342.0" AnchorPane.bottomAnchor="44.0" AnchorPane.rightAnchor="36.60000000000002" />
+      <JFXButton fx:id="homeBack" layoutX="14.0" layoutY="14.0" onAction="#homeBack" text="Back" />
    </children>
 </AnchorPane>
