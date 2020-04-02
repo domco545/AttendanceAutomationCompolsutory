@@ -33,9 +33,9 @@ public class SubjectDB {
             ResultSet rs = s.executeQuery(sql);
             while (rs.next()) {
                 int id = rs.getInt("id");
-                String name = rs.getString("name");
-                Subject subject = new Subject(name, id);
-                subjects.add(subject);
+                String subject = rs.getString("subject");
+                Subject sj = new Subject(subject, id);
+                subjects.add(sj);
             }
             return subjects;
         } catch (SQLServerException ex) {
