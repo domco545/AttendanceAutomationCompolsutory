@@ -52,7 +52,7 @@ public class TeacherDB implements ITeacherDB {
     @Override
     public String getTeacherMail(int id) {
         try ( Connection con = db.getConnection()) {
-            String sql = "SELECT Teacher.email FROM Teacher";
+            String sql = "SELECT Teacher.email FROM Teacher WHERE id = ?";
             Statement s = con.createStatement();
             String mail = ""+s.getResultSet();
             return mail;
@@ -69,10 +69,18 @@ public class TeacherDB implements ITeacherDB {
     @Override
     public String getTeacherName(int id) {
          try ( Connection con = db.getConnection()) {
-            String sql = "SELECT Teacher.lastName FROM Teacher";
-            Statement s = con.createStatement();
-            String mail = ""+s.getResultSet();
-            return mail;
+             String result = "";
+            String sql = "SELECT Teacher.lastName FROM Teacher WHERE id = ?";
+            PreparedStatement p = con.prepareStatement(sql);
+            p.setInt(1, id);
+           
+            ResultSet rs =  p.executeQuery();
+            while (rs.next())
+            {
+                String lastname = rs.getString("lastName");
+                result = lastname;
+            }
+            return result;
             
             
         } catch (SQLServerException ex) {

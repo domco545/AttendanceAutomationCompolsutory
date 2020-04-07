@@ -5,18 +5,26 @@
  */
 package attendanceautomationcompolsutory.gui.controller;
 
+import attendanceautomationcompolsutory.be.Lesson;
 import attendanceautomationcompolsutory.be.LoggedUser;
+import attendanceautomationcompolsutory.bll.BllManager;
+import attendanceautomationcompolsutory.bll.IBllFacade;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXToggleButton;
 import java.io.IOException;
 import java.net.NetworkInterface;
 import java.net.URL;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -59,15 +67,35 @@ public class StudentMainController implements Initializable {
     @FXML
     private ImageView imgViewProfile;
 
-    /**
-     * Initializes the controller class.
-     */
+    IBllFacade bll = new BllManager();
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         LoggedUser user = LoggedUser.getInstance();
+        /*DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+	LocalDate localDate = LocalDate.now();
+	Date date = Date.valueOf(localDate);*/
         lblName.setText(user.fNmae + " " + user.lName);
         lblEmail.setText(user.email);
         imgViewProfile.setImage(user.image);
+        //lblDate.setText(dtf.format(localDate));
+        /*ObservableList<Lesson> lessons = null;
+        lessons.addAll(bll.getDailyLessons(user.id, date));
+        if(lessons.size()==1)
+        {
+            btnSubjectOne.setText(String.valueOf(lessons.get(1)));
+        }
+        else if(lessons.size()==2)
+        {
+            btnSubjectOne.setText(String.valueOf(lessons.get(1)));
+            btnSubjectTwo.setText(String.valueOf(lessons.get(2)));
+        }
+        else if(lessons.size()==3)
+        {
+             btnSubjectOne.setText(String.valueOf(lessons.get(1)));
+            btnSubjectTwo.setText(String.valueOf(lessons.get(2)));
+            btnSubjectThree.setText(String.valueOf(lessons.get(3)));
+        }*/
         checkVPN();
     }
 

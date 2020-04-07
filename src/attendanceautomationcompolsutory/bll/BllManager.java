@@ -5,7 +5,10 @@
  */
 package attendanceautomationcompolsutory.bll;
 
+import attendanceautomationcompolsutory.be.Lesson;
 import attendanceautomationcompolsutory.dal.AuthenticateDB;
+import java.sql.Date;
+import java.util.List;
 
 /**
  *
@@ -27,6 +30,11 @@ public class BllManager implements IBllFacade {
     @Override
     public void setPass(String mail, String newPass) {
         auth.setPass(mail, newPass);
+    }
+
+    @Override
+    public List<Lesson> getDailyLessons(int studentID,Date date) {
+       return auth.getDailyLessons(studentID, date);
     }
 
 }

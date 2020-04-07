@@ -5,6 +5,10 @@
  */
 package attendanceautomationcompolsutory.bll;
 
+import attendanceautomationcompolsutory.be.Lesson;
+import java.sql.Date;
+import java.util.List;
+
 /**
  *
  * @author domin
@@ -16,4 +20,5 @@ public interface IBllFacade {
 
     public void setPass(String text, String newPass);
     
+    public List<Lesson> getDailyLessons(int studentID,Date date); 
 }
