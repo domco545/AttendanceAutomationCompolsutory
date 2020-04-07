@@ -33,8 +33,8 @@ public class SubjectDB {
             ResultSet rs = s.executeQuery(sql);
             while (rs.next()) {
                 int id = rs.getInt("id");
-                String subject = rs.getString("subject");
-                Subject sj = new Subject(subject, id);
+                String name = rs.getString("name");
+                Subject sj = new Subject(name, id);
                 subjects.add(sj);
             }
             return subjects;

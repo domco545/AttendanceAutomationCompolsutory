@@ -5,6 +5,7 @@
  */
 package attendanceautomationcompolsutory.bll;
 
+import java.io.InputStream;
 import attendanceautomationcompolsutory.be.Lesson;
 import java.sql.Date;
 import java.util.List;
@@ -19,6 +20,8 @@ public interface IBllFacade {
     public boolean emailExist(String mail);
 
     public void setPass(String text, String newPass);
+    
+    public void changeProfilePicture(int id, InputStream img);
     
     public List<Lesson> getDailyLessons(int studentID,Date date); 
 }

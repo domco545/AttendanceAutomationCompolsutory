@@ -91,6 +91,20 @@ public class AuthenticateDB {
         }
     }
 
+    public void changeProfilePicture(int id, InputStream img) {
+        try (Connection con = db.getConnection()) {
+            String sql = "INSERT INTO Profile_Pictures(user_id, image) VALUES(?, ?)";
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.setInt(1, id); // user id
+            pstmt.setBinaryStream(2, img);
+            pstmt.executeQuery();
+
+        } catch (SQLServerException ex) {
+            Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     public List<Lesson> getDailyLessons(int studentID,Date date) {
         try ( Connection con = db.getConnection()) {
             List<Lesson> dailylessons = new ArrayList();
