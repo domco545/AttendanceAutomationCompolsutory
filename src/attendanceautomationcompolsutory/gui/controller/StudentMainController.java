@@ -92,6 +92,21 @@ public class StudentMainController implements Initializable {
 
     @FXML
     private void studentEditProfileButton(ActionEvent event) {
+        try {
+            FXMLLoader loader;
+            Parent root = null;
+
+            loader = new FXMLLoader(getClass().getResource("/attendanceautomationcompolsutory/gui/view/StudentEditProfile.fxml"));
+            root = loader.load();
+
+            Scene scene = new Scene(root);
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML

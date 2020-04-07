@@ -5,6 +5,8 @@
  */
 package attendanceautomationcompolsutory.bll;
 
+import java.io.InputStream;
+
 /**
  *
  * @author domin
@@ -15,5 +17,7 @@ public interface IBllFacade {
     public boolean emailExist(String mail);
 
     public void setPass(String text, String newPass);
+    
+    public void changeProfilePicture(int id, InputStream img);
     
 }

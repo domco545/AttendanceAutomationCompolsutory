@@ -28,7 +28,7 @@ public class LoggedUser {
         this.lName = lName;
         this.email = email;
         this.rights = rights;
-        this.image = new Image(image);
+        this.image = new Image(image, 350.0, 350.0, true, true);
     }
 
     public synchronized static LoggedUser init(int id, String fName, String lName, String email, int rights, InputStream image) {
@@ -46,6 +46,10 @@ public class LoggedUser {
         }
 
         return loggedUser;
+    }
+    
+    public void newImage(InputStream img){
+        this.image = new Image(img, 350.0, 350.0, true, true);
     }
 
     public static void removeInstance() {
