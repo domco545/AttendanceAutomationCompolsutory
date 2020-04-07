@@ -6,6 +6,7 @@
 package attendanceautomationcompolsutory.bll;
 
 import attendanceautomationcompolsutory.dal.AuthenticateDB;
+import java.io.InputStream;
 
 /**
  *
@@ -29,4 +30,8 @@ public class BllManager implements IBllFacade {
         auth.setPass(mail, newPass);
     }
 
+    @Override
+    public void changeProfilePicture(int id, InputStream img) {
+        auth.changeProfilePicture(id, img);
+    }
 }

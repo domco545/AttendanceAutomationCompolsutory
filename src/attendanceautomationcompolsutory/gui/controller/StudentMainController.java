@@ -77,6 +77,21 @@ public class StudentMainController implements Initializable {
 
     @FXML
     private void studentEditProfileButton(ActionEvent event) {
+        try {
+            FXMLLoader loader;
+            Parent root = null;
+
+            loader = new FXMLLoader(getClass().getResource("/attendanceautomationcompolsutory/gui/view/StudentEditProfile.fxml"));
+            root = loader.load();
+
+            Scene scene = new Scene(root);
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
@@ -143,13 +158,13 @@ public class StudentMainController implements Initializable {
                 if (networkInterface.isUp()) {
                     String iName = networkInterface.getName();
                     System.out.println(iName);
-                    if(iName.contains("tun") || iName.contains("ppp") || iName.contains("pptp")){
+                    if (iName.contains("tun") || iName.contains("ppp") || iName.contains("pptp")) {
                         System.out.println("VPN connection found");
                         found = true;
                     }
                 }
             }
-            if(found == false){
+            if (found == false) {
                 System.out.println("VPN connection not found");
             }
         } catch (Exception ex) {
