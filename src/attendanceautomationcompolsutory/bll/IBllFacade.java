@@ -24,4 +24,8 @@ public interface IBllFacade {
     public void changeProfilePicture(int id, InputStream img);
     
     public List<Lesson> getDailyLessons(int studentID,Date date); 
+    
+    public boolean oldPassValid(int id, String pass);
+    
+    public void changePass(int id, String newPass);
 }

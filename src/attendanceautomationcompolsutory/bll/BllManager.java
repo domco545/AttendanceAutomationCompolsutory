@@ -41,4 +41,14 @@ public class BllManager implements IBllFacade {
        return auth.getDailyLessons(studentID, date);
     }
 
+    @Override
+    public boolean oldPassValid(int id, String pass) {
+        return auth.oldPassValid(id, pass);
+    }
+
+    @Override
+    public void changePass(int id, String newPass) {
+        auth.changePass(id, newPass);
+    }
+
 }
