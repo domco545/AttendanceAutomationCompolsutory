@@ -88,11 +88,11 @@ public class AuthenticateDB {
 
     public void changeProfilePicture(int id, InputStream img) {
         try (Connection con = db.getConnection()) {
-            String sql = "INSERT INTO Profile_Pictures(user_id, image) VALUES(?, ?)";
+            String sql = "UPDATE Profile_Pictures SET image = ? WHERE user_id = ?";
             PreparedStatement pstmt = con.prepareStatement(sql);
-            pstmt.setInt(1, id); // user id
-            pstmt.setBinaryStream(2, img);
-            pstmt.executeQuery();
+            pstmt.setBinaryStream(1, img);
+            pstmt.setInt(2, id);
+            pstmt.executeUpdate();
 
         } catch (SQLServerException ex) {
             Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
