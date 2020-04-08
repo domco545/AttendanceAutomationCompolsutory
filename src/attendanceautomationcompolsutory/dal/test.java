@@ -24,14 +24,14 @@ public class test {
 
     
     public static void main(String[] args) throws FileNotFoundException {
-        File file = new File(""); //insert image path
+        File file = new File("C:\\Users\\narma\\Desktop\\test.jfif"); //insert image path
         FileInputStream fis = new FileInputStream(file);
         DBConnection db = new DBConnection();
         
         try(Connection con = db.getConnection()){
             String sql = "INSERT INTO Profile_Pictures(user_id, image) VALUES(?, ?)";
             PreparedStatement pstmt = con.prepareStatement(sql);
-            pstmt.setInt(1, 22); // user id
+            pstmt.setInt(1, 43); // user id
             pstmt.setBinaryStream(2, fis);
             pstmt.executeQuery();
         

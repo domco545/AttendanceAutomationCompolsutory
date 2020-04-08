@@ -82,30 +82,36 @@ public class StudentMainController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         LoggedUser user = LoggedUser.getInstance();
-        /*DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
 	LocalDate localDate = LocalDate.now();
-	Date date = Date.valueOf(localDate);*/
+	Date date = Date.valueOf(localDate);
         lblName.setText(user.fNmae + " " + user.lName);
         lblEmail.setText(user.email);
         imgViewProfile.setImage(user.image);
         //lblDate.setText(dtf.format(localDate));
-        /*ObservableList<Lesson> lessons = null;
-        lessons.addAll(bll.getDailyLessons(user.id, date));
+        
+        ObservableList<Lesson> lessons =  FXCollections.observableArrayList(bll.getDailyLessons(user.id, date));
         if(lessons.size()==1)
         {
             btnSubjectOne.setText(String.valueOf(lessons.get(1)));
+            btnSubjectTwo.setDisable(true);
+            btnSubjectThree.setDisable(true);
+            btnSubjectFour.setDisable(true);
         }
         else if(lessons.size()==2)
         {
             btnSubjectOne.setText(String.valueOf(lessons.get(1)));
             btnSubjectTwo.setText(String.valueOf(lessons.get(2)));
+            btnSubjectThree.setDisable(true);
+            btnSubjectFour.setDisable(true);
         }
         else if(lessons.size()==3)
         {
              btnSubjectOne.setText(String.valueOf(lessons.get(1)));
             btnSubjectTwo.setText(String.valueOf(lessons.get(2)));
             btnSubjectThree.setText(String.valueOf(lessons.get(3)));
-        }*/
+            btnSubjectFour.setDisable(true);
+        }
         checkVPN();
         getCurrentDate();
         initSubjectLabel();
