@@ -90,7 +90,7 @@ public class StudentMainController implements Initializable {
         imgViewProfile.setImage(user.image);
         //lblDate.setText(dtf.format(localDate));
         
-        ObservableList<Lesson> lessons =  FXCollections.observableArrayList(bll.getDailyLessons(user.id, date));
+        /*ObservableList<Lesson> lessons =  FXCollections.observableArrayList(bll.getDailyLessons(user.id, date));
         if(lessons.size()==1)
         {
             btnSubjectOne.setText(String.valueOf(lessons.get(1)));
@@ -111,7 +111,7 @@ public class StudentMainController implements Initializable {
             btnSubjectTwo.setText(String.valueOf(lessons.get(2)));
             btnSubjectThree.setText(String.valueOf(lessons.get(3)));
             btnSubjectFour.setDisable(true);
-        }
+        }*/
         checkVPN();
         getCurrentDate();
         initSubjectLabel();
