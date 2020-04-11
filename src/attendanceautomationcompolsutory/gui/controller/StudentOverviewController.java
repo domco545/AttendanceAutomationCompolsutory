@@ -51,10 +51,12 @@ public class StudentOverviewController implements Initializable {
     private TreeTableColumn<?, ?> collumDate;
     @FXML
     private TreeTableColumn<?, ?> collumStudentStautes;
+    private Iterable<Subject> subjects;
 
-     public StudentOverviewController() {
-    
+    public StudentOverviewController(List<Subject> subjects) {
+        this.subjects = subjects;
     }
+
     /**
      * Initializes the controller class.
      */
@@ -66,8 +68,8 @@ public class StudentOverviewController implements Initializable {
         periods.add(semesters);
         ObservableList<MenuItem> obsperiods = FXCollections.observableArrayList();
         obsperiods.setAll(periods);
-       // periodsdropdown.getItems().setAll(obsperiods);
-        SubjectDB subjectDB = new SubjectDB();
+        // periodsdropdown.getItems().setAll(obsperiods);
+ SubjectDB subjectDB = new SubjectDB();
         List<Subject> subjects = subjectDB.getAllSubject();
         for (Subject subject : subjects) {
             MenuItem menuItem = new MenuItem(subject.getName());
@@ -76,7 +78,6 @@ public class StudentOverviewController implements Initializable {
         ObservableList<MenuItem> obssubjects = FXCollections.observableArrayList();
         obssubjects.setAll(subjectsMenuItem);
         classesdropdown.getItems().setAll(obssubjects);
-
         //Piechart
         ObservableList<PieChart.Data> pieChartData
                 = FXCollections.observableArrayList(
@@ -97,7 +98,7 @@ public class StudentOverviewController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(StudentMainController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
 
     @FXML

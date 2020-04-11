@@ -54,9 +54,9 @@ public class TeacherDBTest {
     @Test
     public void testGetTeacherName() {
         System.out.println("getTeacherName");
-        int id = 0;
+        int id = 1;
         TeacherDB instance = new TeacherDB();
-        String expResult = "";
+        String expResult = "Stegger";
         String result = instance.getTeacherName(id);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.

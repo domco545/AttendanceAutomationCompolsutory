@@ -5,6 +5,11 @@
  */
 package attendanceautomationcompolsutory.bll;
 
+import java.io.InputStream;
+import attendanceautomationcompolsutory.be.Lesson;
+import java.sql.Date;
+import java.util.List;
+
 /**
  *
  * @author domin
@@ -16,4 +21,11 @@ public interface IBllFacade {
 
     public void setPass(String text, String newPass);
     
+    public void changeProfilePicture(int id, InputStream img);
+    
+    public List<Lesson> getDailyLessons(int studentID,Date date); 
+    
+    public boolean oldPassValid(int id, String pass);
+    
+    public void changePass(int id, String newPass);
 }

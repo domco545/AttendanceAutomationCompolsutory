@@ -5,6 +5,7 @@
  */
 package attendanceautomationcompolsutory.dal;
 
+import attendanceautomationcompolsutory.be.Lesson;
 import attendanceautomationcompolsutory.be.LoggedUser;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.InputStream;
@@ -14,6 +15,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Time;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -83,6 +88,83 @@ public class AuthenticateDB {
             Logger.getLogger(AuthenticateDB.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(AuthenticateDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void changeProfilePicture(int id, InputStream img) {
+        try (Connection con = db.getConnection()) {
+            String sql = "UPDATE Profile_Pictures SET image = ? WHERE user_id = ?";
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.setBinaryStream(1, img);
+            pstmt.setInt(2, id);
+            pstmt.executeUpdate();
+
+        } catch (SQLServerException ex) {
+            Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public List<Lesson> getDailyLessons(int studentID, Date date) {
+        try (Connection con = db.getConnection()) {
+            List<Lesson> dailylessons = new ArrayList();
+            String sql = "SELECT Subject.name, Lesson.start_time, Lesson.end_time FROM Lesson\n"
+                    + "JOIN Subject ON Subject.id = subject_id\n"
+                    + "JOIN Student_have_lesson ON Student_have_lesson.lesson_id = Lesson.id\n"
+                    + "WHERE Student_have_lesson.student_id = ? AND Lesson.date =? ";
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.setInt(1, studentID);
+            pstmt.setDate(2, date);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                int subid = rs.getInt("subject_id");
+                Date dat = rs.getDate("date");
+                Time start = rs.getTime("start_time");
+                Time end = rs.getTime("end_time");
+                Lesson lesson = new Lesson(id, subid, dat, start, end);
+                dailylessons.add(lesson);
+                return dailylessons;
+            }
+
+        } catch (Exception e) {
+        }
+        return null;
+    }
+
+    public boolean oldPassValid(int id, String pass) {
+        try (Connection con = db.getConnection()) {
+            String sql = "SELECT password FROM Person WHERE id = ? AND password = ?";
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.setInt(1, id);
+            pstmt.setString(2, pass);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                return true;
+            }
+
+        } catch (SQLServerException ex) {
+            Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    public void changePass(int id, String newPass) {
+        try (Connection con = db.getConnection()) {
+            String sql = "UPDATE Person SET password = ? WHERE id = ?";
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, newPass);
+            pstmt.setInt(2, id);
+            pstmt.executeUpdate();
+
+        } catch (SQLServerException ex) {
+            Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

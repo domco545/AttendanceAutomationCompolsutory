@@ -5,7 +5,11 @@
  */
 package attendanceautomationcompolsutory.bll;
 
+import attendanceautomationcompolsutory.be.Lesson;
 import attendanceautomationcompolsutory.dal.AuthenticateDB;
+import java.io.InputStream;
+import java.sql.Date;
+import java.util.List;
 
 /**
  *
@@ -27,6 +31,24 @@ public class BllManager implements IBllFacade {
     @Override
     public void setPass(String mail, String newPass) {
         auth.setPass(mail, newPass);
+    }
+
+    @Override
+    public void changeProfilePicture(int id, InputStream img) {
+        auth.changeProfilePicture(id, img);
+    }
+    public List<Lesson> getDailyLessons(int studentID,Date date) {
+       return auth.getDailyLessons(studentID, date);
+    }
+
+    @Override
+    public boolean oldPassValid(int id, String pass) {
+        return auth.oldPassValid(id, pass);
+    }
+
+    @Override
+    public void changePass(int id, String newPass) {
+        auth.changePass(id, newPass);
     }
 
 }
