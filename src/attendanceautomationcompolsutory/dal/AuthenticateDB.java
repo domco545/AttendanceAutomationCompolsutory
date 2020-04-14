@@ -27,9 +27,10 @@ import java.util.List;
 public class AuthenticateDB {
 
     DBConnection db = new DBConnection();
+    ConnectionPool conpool = ConnectionPool.getInstance();
 
-    public boolean authenticateUser(String mail, String pass) {
-        try (Connection con = db.getConnection()) {
+    public boolean authenticateUser(Connection con, String mail, String pass) {
+        try {
             String sql = "SELECT p.*, pp.image FROM Person as p  \n"
                     + "JOIN Profile_Pictures as pp ON p.id = pp.user_id\n"
                     + "WHERE p.email = ? AND p.password = ?";
@@ -49,16 +50,14 @@ public class AuthenticateDB {
                 LoggedUser.init(id, fName, lName, email, rights, image);
                 return true;
             }
-        } catch (SQLServerException ex) {
-            Logger.getLogger(AuthenticateDB.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(AuthenticateDB.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
         }
         return false;
     }
 
-    public boolean emailExist(String mail) {
-        try (Connection con = db.getConnection()) {
+    public boolean emailExist(Connection con, String mail) {
+        try{
             String sql = "SELECT email FROM Person WHERE email = ?";
             PreparedStatement pstmt = con.prepareStatement(sql);
             pstmt.setString(1, mail);
@@ -77,8 +76,8 @@ public class AuthenticateDB {
         return false;
     }
 
-    public void setPass(String mail, String newPass) {
-        try (Connection con = db.getConnection()) {
+    public void setPass(Connection con, String mail, String newPass) {
+        try{
             String sql = "UPDATE Person SET password = ? WHERE email = ?";
             PreparedStatement pstmt = con.prepareStatement(sql);
             pstmt.setString(1, newPass);
@@ -91,8 +90,8 @@ public class AuthenticateDB {
         }
     }
 
-    public void changeProfilePicture(int id, InputStream img) {
-        try (Connection con = db.getConnection()) {
+    public void changeProfilePicture(Connection con, int id, InputStream img) {
+        try{
             String sql = "UPDATE Profile_Pictures SET image = ? WHERE user_id = ?";
             PreparedStatement pstmt = con.prepareStatement(sql);
             pstmt.setBinaryStream(1, img);
@@ -106,8 +105,8 @@ public class AuthenticateDB {
         }
     }
 
-    public List<Lesson> getDailyLessons(int studentID, String date) {
-        try (Connection con = db.getConnection()) {
+    public List<Lesson> getDailyLessons(Connection con, int studentID, String date) {
+        try{
             List<Lesson> dailylessons = new ArrayList();
             String sql = "SELECT Subject.name, Lesson.start_time, Lesson.end_time FROM Lesson\n"
                     + "JOIN Subject ON Subject.id = subject_id\n"
@@ -133,8 +132,8 @@ public class AuthenticateDB {
         return null;
     }
 
-    public boolean oldPassValid(int id, String pass) {
-        try (Connection con = db.getConnection()) {
+    public boolean oldPassValid(Connection con, int id, String pass) {
+        try{
             String sql = "SELECT password FROM Person WHERE id = ? AND password = ?";
             PreparedStatement pstmt = con.prepareStatement(sql);
             pstmt.setInt(1, id);
@@ -153,8 +152,8 @@ public class AuthenticateDB {
         return false;
     }
 
-    public void changePass(int id, String newPass) {
-        try (Connection con = db.getConnection()) {
+    public void changePass(Connection con, int id, String newPass) {
+        try{
             String sql = "UPDATE Person SET password = ? WHERE id = ?";
             PreparedStatement pstmt = con.prepareStatement(sql);
             pstmt.setString(1, newPass);
