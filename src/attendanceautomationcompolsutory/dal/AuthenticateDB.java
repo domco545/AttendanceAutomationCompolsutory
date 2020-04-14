@@ -111,23 +111,24 @@ public class AuthenticateDB {
             String sql = "SELECT Subject.name, Lesson.start_time, Lesson.end_time FROM Lesson\n"
                     + "JOIN Subject ON Subject.id = subject_id\n"
                     + "JOIN Student_have_lesson ON Student_have_lesson.lesson_id = Lesson.id\n"
-                    + "WHERE Student_have_lesson.student_id = ? AND Lesson.date =? ";
+                    + "WHERE Student_have_lesson.student_id = ? AND Lesson.day =? ";
             PreparedStatement pstmt = con.prepareStatement(sql);
             pstmt.setInt(1, studentID);
             pstmt.setString(2, date);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-                int id = rs.getInt("id");
-                int subid = rs.getInt("subject_id");
-                String day = rs.getString("day");
+                String name = rs.getString("name");
                 Time start = rs.getTime("start_time");
                 Time end = rs.getTime("end_time");
-                Lesson lesson = new Lesson(id, subid, day, start, end);
+                Lesson lesson = new Lesson(name, start, end);
                 dailylessons.add(lesson);
                 return dailylessons;
             }
 
-        } catch (Exception e) {
+         } catch (SQLServerException ex) {
+            Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }

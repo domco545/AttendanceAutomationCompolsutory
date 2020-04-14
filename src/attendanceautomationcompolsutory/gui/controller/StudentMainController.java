@@ -19,23 +19,18 @@ import com.jfoenix.controls.JFXToggleButton;
 import java.io.IOException;
 import java.net.NetworkInterface;
 import java.net.URL;
+
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.sql.Date;
 import java.text.ParseException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -44,7 +39,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -90,11 +84,16 @@ public class StudentMainController implements Initializable {
         lblName.setText(user.fNmae + " " + user.lName);
         lblEmail.setText(user.email);
         imgViewProfile.setImage(user.image);
-        
+
         checkVPN();
         getCurrentDate();
         initSubjectLabel();
-        getDailySchedule();
+
+        try {
+            getDailySchedule();
+        } catch (ParseException ex) {
+            Logger.getLogger(StudentMainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
@@ -216,34 +215,46 @@ public class StudentMainController implements Initializable {
         List<Subject> subjects = subjectDB.getAllSubject();
 
     }
-    private void getDailySchedule()
-    {
+
+    private void getDailySchedule() throws ParseException {
         LoggedUser user = LoggedUser.getInstance();
-        Calendar time = Calendar.getInstance();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        String dayOfWeek = simpleDateFormat.format(time.getTime());
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");  
+        Date date = new Date();
+        
+        
+       
+        
+
+
+        String dayOfWeek = new SimpleDateFormat("EEEE", Locale.ENGLISH).format(date);
+        
         
         List<Lesson> lessons = bll.getDailyLessons(user.id, dayOfWeek);
-        ObservableList<Lesson> daily = FXCollections.observableArrayList();
-        for (Lesson lesson : lessons) {
+        //ObservableList<Lesson> daily = FXCollections.observableArrayList();
+        /* for (Lesson lesson : lessons) {
             daily.add(lesson);
-        }
-        if (daily.size() == 1) {
-            btnSubjectOne.setText(String.valueOf(daily.get(1)));
+        }*/
+        if (lessons.isEmpty() == true) {
+            btnSubjectOne.setDisable(true);
             btnSubjectTwo.setDisable(true);
             btnSubjectThree.setDisable(true);
             btnSubjectFour.setDisable(true);
-        } else if (daily.size() == 2) {
-            btnSubjectOne.setText(String.valueOf(daily.get(1)));
-            btnSubjectTwo.setText(String.valueOf(daily.get(2)));
+        } else if (lessons.size() == 1) {
+            btnSubjectOne.setText(String.valueOf(lessons.get(0)));
+            btnSubjectTwo.setDisable(true);
             btnSubjectThree.setDisable(true);
             btnSubjectFour.setDisable(true);
-        } else if (daily.size() == 3) {
-            btnSubjectOne.setText(String.valueOf(daily.get(1)));
-            btnSubjectTwo.setText(String.valueOf(daily.get(2)));
-            btnSubjectThree.setText(String.valueOf(daily.get(3)));
+        } else if (lessons.size() == 2) {
+            btnSubjectOne.setText(String.valueOf(lessons.get(0)));
+            btnSubjectTwo.setText(String.valueOf(lessons.get(1)));
+            btnSubjectThree.setDisable(true);
+            btnSubjectFour.setDisable(true);
+        } else if (lessons.size() == 3) {
+            btnSubjectOne.setText(String.valueOf(lessons.get(0)));
+            btnSubjectTwo.setText(String.valueOf(lessons.get(1)));
+            btnSubjectThree.setText(String.valueOf(lessons.get(2)));
             btnSubjectFour.setDisable(true);
         }
-    
+
     }
 }
