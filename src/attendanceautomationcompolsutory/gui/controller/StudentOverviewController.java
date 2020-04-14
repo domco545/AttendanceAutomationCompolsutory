@@ -10,10 +10,14 @@ import attendanceautomationcompolsutory.dal.SubjectDB;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -24,8 +28,14 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.SplitMenuButton;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.Toggle;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.TreeTableColumn;
 import javafx.stage.Stage;
 
@@ -36,48 +46,70 @@ import javafx.stage.Stage;
  */
 public class StudentOverviewController implements Initializable {
 
-    @FXML
-    private SplitMenuButton classesdropdown;
-    private SplitMenuButton periodsdropdown;
-
     private MenuItem weeks = new MenuItem("weeks");
     private MenuItem months = new MenuItem("months");
     private MenuItem semesters = new MenuItem("semesters");
-    private List<MenuItem> subjectsMenuItem = new ArrayList();
-
     @FXML
     private PieChart pieChart;
     @FXML
     private TreeTableColumn<?, ?> collumDate;
     @FXML
     private TreeTableColumn<?, ?> collumStudentStautes;
-    private Iterable<Subject> subjects;
-
-    public StudentOverviewController(List<Subject> subjects) {
-        this.subjects = subjects;
-    }
+    @FXML
+    private Button preBt;
+    @FXML
+    private Button nextBt;
+    @FXML
+    private ComboBox<String> comboxSubject;
+    @FXML
+    private RadioButton radioBtnWeek;
+    @FXML
+    private RadioButton radioBtnMonth;
+    @FXML
+    private RadioButton radioBtnSemester;
+    private String periodType;
+    private int periodValue;
 
     /**
-     * Initializes the controller class.
+     * Initializes the controller class
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        List<MenuItem> periods = new ArrayList();
+        /*   List<MenuItem> periods = new ArrayList();
         periods.add(weeks);
         periods.add(months);
         periods.add(semesters);
         ObservableList<MenuItem> obsperiods = FXCollections.observableArrayList();
-        obsperiods.setAll(periods);
-        // periodsdropdown.getItems().setAll(obsperiods);
- SubjectDB subjectDB = new SubjectDB();
+        obsperiods.setAll(periods);*/
+        SubjectDB subjectDB = new SubjectDB();
         List<Subject> subjects = subjectDB.getAllSubject();
+        List<String> subjectNames = new ArrayList<>();
         for (Subject subject : subjects) {
             MenuItem menuItem = new MenuItem(subject.getName());
-            subjectsMenuItem.add(menuItem);
+            subjectNames.add(subject.getName());
         }
-        ObservableList<MenuItem> obssubjects = FXCollections.observableArrayList();
-        obssubjects.setAll(subjectsMenuItem);
-        classesdropdown.getItems().setAll(obssubjects);
+        comboxSubject.getItems().addAll(subjectNames);
+        ToggleGroup toggleGroup = new ToggleGroup();
+        radioBtnWeek.setToggleGroup(toggleGroup);
+        radioBtnMonth.setToggleGroup(toggleGroup);
+        radioBtnSemester.setToggleGroup(toggleGroup);
+        radioBtnWeek.setSelected(true);
+        toggleGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+            public void changed(ObservableValue<? extends Toggle> ob,
+                    Toggle o, Toggle n) {
+
+                RadioButton rb = (RadioButton) toggleGroup.getSelectedToggle();
+
+                if (rb != null) {
+                    if (comboxSubject.getValue() != null) {
+                        initFilter();
+                    } else {
+                        System.out.println("alert");
+                    }
+                }
+            }
+        });
+
         //Piechart
         ObservableList<PieChart.Data> pieChartData
                 = FXCollections.observableArrayList(
@@ -121,7 +153,6 @@ public class StudentOverviewController implements Initializable {
         }
     }
 
-    @FXML
     private void classDropDown(ActionEvent event) {
         MenuItem.MENU_VALIDATION_EVENT.getClass();
 
@@ -129,6 +160,40 @@ public class StudentOverviewController implements Initializable {
 
     void setUser() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @FXML
+    private void preBTAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void nextBTAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void comboxSubjectAction(ActionEvent event) {
+        initFilter();
+    }
+
+    private void initFilter() {
+        String subjectName;
+        Date date = new Date();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        subjectName = comboxSubject.getValue();
+        if (radioBtnWeek.isSelected()) {
+            periodType = radioBtnWeek.getText();
+            periodValue = cal.get(Calendar.WEEK_OF_YEAR);
+        } else if (radioBtnMonth.isSelected()) {
+            periodType = radioBtnMonth.getText();
+            periodValue = cal.get(Calendar.MONTH) + 1;
+        } else if (radioBtnSemester.isSelected()) {
+            periodType = radioBtnSemester.getText();
+            periodValue = 0;
+        }
+         System.out.println(subjectName);
+        System.out.println(periodType);
+        System.out.println(periodValue);
     }
 
 }
