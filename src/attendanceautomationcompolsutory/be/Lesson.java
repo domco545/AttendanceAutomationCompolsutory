@@ -18,15 +18,15 @@ public class Lesson {
 
     private final IntegerProperty id = new SimpleIntegerProperty();
     private final IntegerProperty subject_id = new SimpleIntegerProperty();
-    private Date date;
+    private String day;
     private Time start_time;
     private Time end_time;
     
-    public Lesson(int id, int subject_id, Date date, Time start_time, Time end_time)
+    public Lesson(int id, int subject_id, String day, Time start_time, Time end_time)
     {
         id = this.getId();
         subject_id = this.getSubject_id();
-        date = this.date;
+        day = this.day;
         start_time = this.start_time;
         end_time = this.end_time;
     }
@@ -49,12 +49,12 @@ public class Lesson {
     }
     
 
-    public Date getDate() {
-        return date;
+    public String getDay() {
+        return day;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDay(String day) {
+        this.day = day;
     }
 
     private int getSubject_id() {

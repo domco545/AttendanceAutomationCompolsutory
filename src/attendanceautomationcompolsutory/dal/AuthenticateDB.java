@@ -106,7 +106,7 @@ public class AuthenticateDB {
         }
     }
 
-    public List<Lesson> getDailyLessons(int studentID, Date date) {
+    public List<Lesson> getDailyLessons(int studentID, String date) {
         try (Connection con = db.getConnection()) {
             List<Lesson> dailylessons = new ArrayList();
             String sql = "SELECT Subject.name, Lesson.start_time, Lesson.end_time FROM Lesson\n"
@@ -115,15 +115,15 @@ public class AuthenticateDB {
                     + "WHERE Student_have_lesson.student_id = ? AND Lesson.date =? ";
             PreparedStatement pstmt = con.prepareStatement(sql);
             pstmt.setInt(1, studentID);
-            pstmt.setDate(2, date);
+            pstmt.setString(2, date);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt("id");
                 int subid = rs.getInt("subject_id");
-                Date dat = rs.getDate("date");
+                String day = rs.getString("day");
                 Time start = rs.getTime("start_time");
                 Time end = rs.getTime("end_time");
-                Lesson lesson = new Lesson(id, subid, dat, start, end);
+                Lesson lesson = new Lesson(id, subid, day, start, end);
                 dailylessons.add(lesson);
                 return dailylessons;
             }

@@ -37,7 +37,7 @@ public class BllManager implements IBllFacade {
     public void changeProfilePicture(int id, InputStream img) {
         auth.changeProfilePicture(id, img);
     }
-    public List<Lesson> getDailyLessons(int studentID,Date date) {
+    public List<Lesson> getDailyLessons(int studentID,String date) {
        return auth.getDailyLessons(studentID, date);
     }
 

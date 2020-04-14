@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package attendanceautomationcompolsutory.gui.controller;
+
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -22,12 +23,14 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.sql.Date;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -81,40 +84,18 @@ public class StudentMainController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
         LoggedUser user = LoggedUser.getInstance();
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-	LocalDate localDate = LocalDate.now();
-	Date date = Date.valueOf(localDate);
+        // DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
         lblName.setText(user.fNmae + " " + user.lName);
         lblEmail.setText(user.email);
         imgViewProfile.setImage(user.image);
-        //lblDate.setText(dtf.format(localDate));
         
-        /*ObservableList<Lesson> lessons =  FXCollections.observableArrayList(bll.getDailyLessons(user.id, date));
-        if(lessons.size()==1)
-        {
-            btnSubjectOne.setText(String.valueOf(lessons.get(1)));
-            btnSubjectTwo.setDisable(true);
-            btnSubjectThree.setDisable(true);
-            btnSubjectFour.setDisable(true);
-        }
-        else if(lessons.size()==2)
-        {
-            btnSubjectOne.setText(String.valueOf(lessons.get(1)));
-            btnSubjectTwo.setText(String.valueOf(lessons.get(2)));
-            btnSubjectThree.setDisable(true);
-            btnSubjectFour.setDisable(true);
-        }
-        else if(lessons.size()==3)
-        {
-             btnSubjectOne.setText(String.valueOf(lessons.get(1)));
-            btnSubjectTwo.setText(String.valueOf(lessons.get(2)));
-            btnSubjectThree.setText(String.valueOf(lessons.get(3)));
-            btnSubjectFour.setDisable(true);
-        }*/
         checkVPN();
         getCurrentDate();
         initSubjectLabel();
+        getDailySchedule();
+
     }
 
     @FXML
@@ -233,8 +214,36 @@ public class StudentMainController implements Initializable {
     private void initSubjectLabel() {
         SubjectDB subjectDB = new SubjectDB();
         List<Subject> subjects = subjectDB.getAllSubject();
-       
+
+    }
+    private void getDailySchedule()
+    {
+        LoggedUser user = LoggedUser.getInstance();
+        Calendar time = Calendar.getInstance();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        String dayOfWeek = simpleDateFormat.format(time.getTime());
+        
+        List<Lesson> lessons = bll.getDailyLessons(user.id, dayOfWeek);
+        ObservableList<Lesson> daily = FXCollections.observableArrayList();
+        for (Lesson lesson : lessons) {
+            daily.add(lesson);
+        }
+        if (daily.size() == 1) {
+            btnSubjectOne.setText(String.valueOf(daily.get(1)));
+            btnSubjectTwo.setDisable(true);
+            btnSubjectThree.setDisable(true);
+            btnSubjectFour.setDisable(true);
+        } else if (daily.size() == 2) {
+            btnSubjectOne.setText(String.valueOf(daily.get(1)));
+            btnSubjectTwo.setText(String.valueOf(daily.get(2)));
+            btnSubjectThree.setDisable(true);
+            btnSubjectFour.setDisable(true);
+        } else if (daily.size() == 3) {
+            btnSubjectOne.setText(String.valueOf(daily.get(1)));
+            btnSubjectTwo.setText(String.valueOf(daily.get(2)));
+            btnSubjectThree.setText(String.valueOf(daily.get(3)));
+            btnSubjectFour.setDisable(true);
+        }
+    
     }
 }
-
-
