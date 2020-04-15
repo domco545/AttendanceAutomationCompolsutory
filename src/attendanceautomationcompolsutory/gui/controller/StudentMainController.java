@@ -14,6 +14,8 @@ import attendanceautomationcompolsutory.be.Subject;
 import attendanceautomationcompolsutory.dal.SubjectDB;
 import attendanceautomationcompolsutory.bll.BllManager;
 import attendanceautomationcompolsutory.bll.IBllFacade;
+import attendanceautomationcompolsutory.bll.StudentManager;
+import attendanceautomationcompolsutory.dal.IStudentDB;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXToggleButton;
 import java.io.IOException;
@@ -75,11 +77,13 @@ public class StudentMainController implements Initializable {
     private ImageView imgViewProfile;
 
     IBllFacade bll = new BllManager();
+    IStudentDB studentbll = new StudentManager();
+    LoggedUser user = LoggedUser.getInstance();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        LoggedUser user = LoggedUser.getInstance();
+        //LoggedUser user = LoggedUser.getInstance();
         // DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
         lblName.setText(user.fNmae + " " + user.lName);
         lblEmail.setText(user.email);
@@ -107,7 +111,7 @@ public class StudentMainController implements Initializable {
             FXMLLoader loader;
             Parent root = null;
 
-            loader = new FXMLLoader(getClass().getResource("/attendanceautomationcompolsutory/gui/view/StudentEditProfile.fxml"));
+            loader = new FXMLLoader(getClass().getResource("/attendanceautomationcompolsutory/gui/view/studentEditProfile.fxml"));
             root = loader.load();
 
             Scene scene = new Scene(root);
@@ -171,7 +175,21 @@ public class StudentMainController implements Initializable {
 
     @FXML
     private void confirmAttendance(ActionEvent event) {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+        Date date = new Date();
 
+        String dayOfWeek = new SimpleDateFormat("EEEE", Locale.ENGLISH).format(date);
+
+        List<Lesson> lessons = bll.getDailyLessons(user.id, dayOfWeek);
+        if (!btnSubjectOne.getText().isEmpty() && btnSubjectOne.isSelected()) {
+
+            studentbll.submitAttendance(user.id,lessons.get(0).getId());
+        }
+        else if (!btnSubjectOne.getText().isEmpty() && btnSubjectOne.isPressed() && !btnSubjectTwo.getText().isEmpty() && btnSubjectTwo.isPressed())
+        {
+            studentbll.submitAttendance(user.id,lessons.get(0).getId());
+            studentbll.submitAttendance(user.id,lessons.get(1).getId());
+        }
     }
 
     private void checkVPN() {
@@ -217,19 +235,14 @@ public class StudentMainController implements Initializable {
     }
 
     private void getDailySchedule() throws ParseException {
-        LoggedUser user = LoggedUser.getInstance();
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");  
+        //LoggedUser user = LoggedUser.getInstance();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         Date date = new Date();
-        
-        
-       
-        
-
 
         String dayOfWeek = new SimpleDateFormat("EEEE", Locale.ENGLISH).format(date);
-        
-        
+
         List<Lesson> lessons = bll.getDailyLessons(user.id, dayOfWeek);
+
         //ObservableList<Lesson> daily = FXCollections.observableArrayList();
         /* for (Lesson lesson : lessons) {
             daily.add(lesson);

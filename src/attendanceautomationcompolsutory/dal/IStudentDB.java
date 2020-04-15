@@ -5,10 +5,13 @@
  */
 package attendanceautomationcompolsutory.dal;
 
+import java.sql.Connection;
+import java.sql.Date;
+
 /**
  *
  * @author domin
  */
 public interface IStudentDB {
-    
+     public void submitAttendance(int student_id, int lesson_id);
 }

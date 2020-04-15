@@ -16,6 +16,10 @@ public class LoggedUser {
 
     private static LoggedUser loggedUser = null;
     public int id;
+
+    public int getId() {
+        return id;
+    }
     public String fNmae;
     public String lName;
     public String email;
