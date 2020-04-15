@@ -10,7 +10,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" styleClass="bg" stylesheets="@main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendanceautomationcompolsutory.gui.controller.TeacherMainController">
    <children>
-      <Label fx:id="lblClass" layoutX="249.0" layoutY="240.0" />
+      <Label fx:id="lblClass" layoutX="257.0" layoutY="240.0" prefHeight="17.0" prefWidth="47.0" />
       <JFXButton fx:id="BtnDetail" layoutX="217.0" layoutY="436.0" onAction="#loadStudentDetail" prefHeight="26.0" prefWidth="92.0" text="Detail" AnchorPane.bottomAnchor="14.666666666666686" />
       <Label id="l" fx:id="LblCurrentDay" layoutX="229.0" layoutY="89.0" text="Current Date" AnchorPane.leftAnchor="229.0" />
       <Pane layoutY="2.0" prefHeight="480.0" prefWidth="166.0" styleClass="side" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -30,6 +30,6 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Label layoutX="203.0" layoutY="240.0" prefHeight="17.0" prefWidth="38.0" text="Class:" />
+      <Label layoutX="203.0" layoutY="240.0" prefHeight="17.0" prefWidth="47.0" text="Lesson:" />
    </children>
 </AnchorPane>

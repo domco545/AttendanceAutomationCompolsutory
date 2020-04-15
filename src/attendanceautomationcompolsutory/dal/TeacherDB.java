@@ -5,6 +5,7 @@
  */
 package attendanceautomationcompolsutory.dal;
 
+import attendanceautomationcompolsutory.be.Lesson;
 import attendanceautomationcompolsutory.be.Student;
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
@@ -13,6 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Time;
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,12 +25,12 @@ import java.util.logging.Logger;
  *
  * @author narma
  */
-public class TeacherDB implements ITeacherDB {
+public class TeacherDB {
 
     DBConnection db = new DBConnection();
 
     public List<Student> getStudentData() {
-        try ( Connection con = db.getConnection()) {
+        try (Connection con = db.getConnection()) {
             List<Student> allstudents = new ArrayList();
             String sql = "SELECT Student.id , Student.firstName , Student.lastName FROM Student";
             Statement s = con.createStatement();
@@ -49,46 +51,33 @@ public class TeacherDB implements ITeacherDB {
         return null;
     }
 
-    @Override
-    public String getTeacherMail(int id) {
-        try ( Connection con = db.getConnection()) {
-            String sql = "SELECT Teacher.email FROM Teacher WHERE id = ?";
-            Statement s = con.createStatement();
-            String mail = ""+s.getResultSet();
-            return mail;
-            
-            
-        } catch (SQLServerException ex) {
-            Logger.getLogger(TeacherDB.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(TeacherDB.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
+    public Lesson getLesson(Connection con, int id, String day) {
+        try {
+            Lesson lesson;
+            String sql = "SELECT Subject.name, Lesson.id, Lesson.start_time, Lesson.end_time FROM Lesson"
+                    + "JOIN Subject ON Subject.id = subject_id"
+                    + "WHERE (Subject.teacher_id = ?) AND (Lesson.date = ?) AND "
+                    + "(CONVERT(TIME,GETDATE()) BETWEEN Lesson.start_time AND Lesson.end_time)";
 
-    @Override
-    public String getTeacherName(int id) {
-         try ( Connection con = db.getConnection()) {
-             String result = "";
-            String sql = "SELECT Teacher.lastName FROM Teacher WHERE id = ?";
-            PreparedStatement p = con.prepareStatement(sql);
-            p.setInt(1, id);
-           
-            ResultSet rs =  p.executeQuery();
-            while (rs.next())
-            {
-                String lastname = rs.getString("lastName");
-                result = lastname;
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.setInt(1, id);
+            pstmt.setString(2, day);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                Integer lessonId = rs.getInt("id");
+                String name = rs.getString("name");
+                Time start = rs.getTime("start_time");
+                Time end = rs.getTime("end_time");
+                lesson = new Lesson(lessonId, name, start, end);
+            }else{
+                lesson = new Lesson();
             }
-            return result;
             
-            
-        } catch (SQLServerException ex) {
-            Logger.getLogger(TeacherDB.class.getName()).log(Level.SEVERE, null, ex);
+            return lesson;
         } catch (SQLException ex) {
             Logger.getLogger(TeacherDB.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
-
 }

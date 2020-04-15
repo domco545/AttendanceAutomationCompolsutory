@@ -16,36 +16,39 @@ import javafx.beans.property.SimpleIntegerProperty;
  */
 public class Lesson {
 
-  
     private int id;
     private String subject_name;
     private Time start_time;
     private Time end_time;
-    
-    public Lesson(int id, String subject_name, Time start_time, Time end_time)
-    {
-         this.id = id;
-         this.subject_name = subject_name;
-         this.start_time = start_time;
-         this.end_time = end_time;
+
+    public Lesson(int id, String subject_name, Time start_time, Time end_time) {
+        this.id = id;
+        this.subject_name = subject_name;
+        this.start_time = start_time;
+        this.end_time = end_time;
     }
-    
-     public int getId() {
+
+    //dont remove this 
+    public Lesson() {
+        
+    }
+
+    public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
     }
-    
-      public String getSubject_name() {
+
+    public String getSubject_name() {
         return subject_name;
     }
 
     public void setSubject_name(String subject_name) {
         this.subject_name = subject_name;
     }
-    
+
     public Time getStart_time() {
         return start_time;
     }
@@ -64,10 +67,7 @@ public class Lesson {
 
     @Override
     public String toString() {
-        return subject_name+" "+start_time+" "+end_time; 
+        return subject_name + " " + start_time + " " + end_time;
     }
-    
 
-   
-    
 }
