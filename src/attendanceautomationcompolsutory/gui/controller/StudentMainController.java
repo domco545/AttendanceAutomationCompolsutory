@@ -40,6 +40,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
@@ -79,6 +80,8 @@ public class StudentMainController implements Initializable {
     IBllFacade bll = new BllManager();
     IStudentDB studentbll = new StudentManager();
     LoggedUser user = LoggedUser.getInstance();
+    @FXML
+    private Label errorlabel;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -181,14 +184,35 @@ public class StudentMainController implements Initializable {
         String dayOfWeek = new SimpleDateFormat("EEEE", Locale.ENGLISH).format(date);
 
         List<Lesson> lessons = bll.getDailyLessons(user.id, dayOfWeek);
-        if (!btnSubjectOne.getText().isEmpty() && btnSubjectOne.isSelected()) {
+        if (lessons.size()==1 &&!btnSubjectOne.getText().isEmpty() && btnSubjectOne.isSelected()) {
 
             studentbll.submitAttendance(user.id,lessons.get(0).getId());
+            btnSubjectOne.setDisable(true);
+            errorlabel.setText("You successfully submitted your attendance");
         }
-        else if (!btnSubjectOne.getText().isEmpty() && btnSubjectOne.isPressed() && !btnSubjectTwo.getText().isEmpty() && btnSubjectTwo.isPressed())
+        else if (lessons.size()==2 && !btnSubjectOne.getText().isEmpty() && btnSubjectOne.isSelected() && !btnSubjectTwo.getText().isEmpty() && btnSubjectTwo.isSelected())
         {
             studentbll.submitAttendance(user.id,lessons.get(0).getId());
             studentbll.submitAttendance(user.id,lessons.get(1).getId());
+            btnSubjectOne.setDisable(true);
+            btnSubjectTwo.setDisable(true);
+            errorlabel.setText("You successfully submitted your attendance");
+        }
+        else if(!btnSubjectOne.getText().isEmpty())
+        {   
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Error");
+            alert.setHeaderText("There is no selected subject");
+
+            alert.showAndWait();
+        }
+        else if(!btnSubjectOne.getText().isEmpty() && !btnSubjectTwo.getText().isEmpty())
+        {
+             Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Error");
+            alert.setHeaderText("There are no selected subjects");
+
+            alert.showAndWait();
         }
     }
 

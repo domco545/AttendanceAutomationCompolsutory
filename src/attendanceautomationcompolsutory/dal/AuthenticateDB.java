@@ -108,7 +108,7 @@ public class AuthenticateDB {
     public List<Lesson> getDailyLessons(Connection con, int studentID, String date) {
         try{
             List<Lesson> dailylessons = new ArrayList();
-            String sql = "SELECT Subject.id,Subject.name, Lesson.start_time, Lesson.end_time FROM Lesson\n"
+            String sql = "SELECT Lesson.id,Subject.name, Lesson.start_time, Lesson.end_time FROM Lesson\n"
                     + "JOIN Subject ON Subject.id = subject_id\n"
                     + "JOIN Student_have_lesson ON Student_have_lesson.lesson_id = Lesson.id\n"
                     + "WHERE Student_have_lesson.student_id = ? AND Lesson.day =? ";
@@ -123,9 +123,9 @@ public class AuthenticateDB {
                 Time end = rs.getTime("end_time");
                 Lesson lesson = new Lesson(id,name, start, end);
                 dailylessons.add(lesson);
-                return dailylessons;
+                
             }
-
+                return dailylessons;
          } catch (SQLServerException ex) {
             Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {

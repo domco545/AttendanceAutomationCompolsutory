@@ -77,5 +77,10 @@
             <JFXButton fx:id="studentOverviewBtn" layoutX="66.0" layoutY="250.0" onAction="#goToOverview" text="Overview" />
          </children>
       </Pane>
+      <Pane layoutX="274.0" layoutY="353.0" prefHeight="18.0" prefWidth="344.0">
+         <children>
+            <Label fx:id="errorlabel" alignment="CENTER" layoutX="42.0" layoutY="1.0" prefHeight="17.0" prefWidth="278.0" />
+         </children>
+      </Pane>
    </children>
 </AnchorPane>
