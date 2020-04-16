@@ -5,35 +5,47 @@
  */
 package attendanceautomationcompolsutory.be;
 
+import java.util.Date;
+
 /**
  *
- * @author narma
+ * @author saraf
  */
 public class Attendance {
+    private Date date;
+    private String state;
 
-  private String subject;
-    private String date;
-  
-
-    public Attendance(String date, String subject) {
+    public Attendance(Date date, String state) {
         this.date = date;
-        this.subject = subject;
+        this.state = state;
     }
-    
-        public String getDate() {
+
+    /**
+     * @return the date
+     */
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    /**
+     * @param date the date to set
+     */
+    public void setDate(Date date) {
         this.date = date;
     }
 
-    public String getSubject() {
-        return subject;
+    /**
+     * @return the state
+     */
+    public String getState() {
+        return state;
     }
 
-    public void setSubject(String subject) {
-        this.subject = subject;
+    /**
+     * @param state the state to set
+     */
+    public void setState(String state) {
+        this.state = state;
     }
-            
+    
 }

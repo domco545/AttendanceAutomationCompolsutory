@@ -5,33 +5,24 @@
  */
 package attendanceautomationcompolsutory.bll;
 
-import attendanceautomationcompolsutory.be.Student;
-import attendanceautomationcompolsutory.dal.ITeacherDB;
+import attendanceautomationcompolsutory.be.Lesson;
+import attendanceautomationcompolsutory.dal.ConnectionPool;
 import attendanceautomationcompolsutory.dal.TeacherDB;
-import java.util.List;
+import java.sql.Connection;
 
 /**
  *
  * @author narma
  */
-public class TeacherManager implements ITeacherDB {
+public class TeacherManager {
 
     TeacherDB teacher = new TeacherDB();
+    ConnectionPool conpool = ConnectionPool.getInstance();
 
-    @Override
-    public List<Student> getStudentData() {
-        List<Student> allstudents = teacher.getStudentData();
-        return allstudents;
+    public Lesson getLesson(int id, String day) {
+        Connection con = conpool.checkOut();
+        Lesson lesson = teacher.getLesson(con, id, day);
+        conpool.checkIn(con);
+        return  lesson;
     }
-
-    @Override
-    public String getTeacherMail(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public String getTeacherName(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
 }

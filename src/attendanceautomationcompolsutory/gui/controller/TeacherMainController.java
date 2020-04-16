@@ -5,10 +5,15 @@
  */
 package attendanceautomationcompolsutory.gui.controller;
 
+import attendanceautomationcompolsutory.be.Lesson;
 import attendanceautomationcompolsutory.be.LoggedUser;
+import attendanceautomationcompolsutory.bll.TeacherManager;
 import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -46,15 +51,22 @@ public class TeacherMainController implements Initializable {
     private Label lblClass;
     @FXML
     private ImageView imgProfile;
-    
+
     LoggedUser user;
+    Lesson currentLesson;
+    TeacherManager tm;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        tm = new TeacherManager();
         user = LoggedUser.getInstance();
         LblName.setText(user.fNmae + " " + user.lName);
         LblEmail.setText(user.email);
         imgProfile.setImage(user.image);
+
+        if(haveLesson() == true){
+            getStudents();
+        }
     }
 
     @FXML
@@ -117,4 +129,24 @@ public class TeacherMainController implements Initializable {
 
     }
 
+    private boolean haveLesson() {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+        Date date = new Date();
+        LblCurrentDay.setText(formatter.format(date));
+
+        String dayOfWeek = new SimpleDateFormat("EEEE", Locale.ENGLISH).format(date);
+        
+        currentLesson = tm.getLesson(user.id, dayOfWeek);
+        
+        if(currentLesson.getSubject_name().isEmpty() || currentLesson.getSubject_name() == null){
+            return false;
+        }else{
+            lblClass.setText(currentLesson.toString());
+            return true;
+        }       
+    }
+    
+    private void getStudents(){
+    
+    }
 }

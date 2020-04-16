@@ -5,7 +5,9 @@
  */
 package attendanceautomationcompolsutory.gui.controller;
 
+import attendanceautomationcompolsutory.be.Attendance;
 import attendanceautomationcompolsutory.be.Subject;
+import attendanceautomationcompolsutory.dal.AttendanceDB;
 import attendanceautomationcompolsutory.dal.SubjectDB;
 import java.io.IOException;
 import java.net.URL;
@@ -34,9 +36,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.TreeTableColumn;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 /**
@@ -52,10 +57,6 @@ public class StudentOverviewController implements Initializable {
     @FXML
     private PieChart pieChart;
     @FXML
-    private TreeTableColumn<?, ?> collumDate;
-    @FXML
-    private TreeTableColumn<?, ?> collumStudentStautes;
-    @FXML
     private Button preBt;
     @FXML
     private Button nextBt;
@@ -69,6 +70,12 @@ public class StudentOverviewController implements Initializable {
     private RadioButton radioBtnSemester;
     private String periodType;
     private int periodValue;
+    @FXML
+    private TableColumn<Attendance, Date> dateCol;
+    @FXML
+    private TableColumn<Attendance, String> attendanceColumn;
+    @FXML
+    private TableView<?> tableView;
 
     /**
      * Initializes the controller class
@@ -191,9 +198,15 @@ public class StudentOverviewController implements Initializable {
             periodType = radioBtnSemester.getText();
             periodValue = 0;
         }
-         System.out.println(subjectName);
+        System.out.println(subjectName);
         System.out.println(periodType);
         System.out.println(periodValue);
+        AttendanceDB attendanceDB = new AttendanceDB();
+        ArrayList<Attendance> attendances = attendanceDB.getAttendanceByFilter(subjectName, periodType, periodValue);
+        ObservableList data = FXCollections.observableList(attendances);
+        tableView.setItems(data);
+        dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
+        attendanceColumn.setCellValueFactory(new PropertyValueFactory<>("state"));
     }
 
 }
