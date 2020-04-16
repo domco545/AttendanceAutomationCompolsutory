@@ -41,16 +41,21 @@ public class AttendanceDB {
             calendar.add(Calendar.DAY_OF_MONTH, -1);
             Date monthEnd = calendar.getTime();
             try ( Connection con = db.getConnection()) {
-                String sql = "SELECT * FROM Attendance Where student_id = ? AND date >= ? AND date <= ?  ";
+                String sql = "SELECT Attendance.date , Subject.name FROM Attendance\n" +
+"JOIN Lesson ON Attendance.lesson_id = Lesson.id\n" +
+"JOIN Subject ON Subject.id = Lesson.subject_id\n" +
+"WHERE Attendance.student_id = ? AND Subject.name = ? AND date >= ? AND date <= ?  ";
                 PreparedStatement ps = con.prepareStatement(sql);
                 ps.setInt(1, studentId);
-                ps.setDate(2, new java.sql.Date(monthStart.getTime()));
-                ps.setDate(3, new java.sql.Date(monthEnd.getTime()));
+                ps.setString(2, subjectName);
+                ps.setDate(3, new java.sql.Date(monthStart.getTime()));
+                ps.setDate(4, new java.sql.Date(monthEnd.getTime()));
                 ResultSet rs = ps.executeQuery();
                 ArrayList<Attendance> attendances = new ArrayList<>();
                 while (rs.next()) {
                     java.sql.Date date = rs.getDate("date");
-                    attendances.add(new Attendance(date, "att"));
+                    String subjectNames = rs.getString("name");
+                    attendances.add(new Attendance(date,subjectNames, "Present"));
                 }
                 return attendances;
             } catch (SQLServerException ex) {

@@ -36,8 +36,9 @@
       <RadioButton fx:id="radioBtnSemester" layoutX="464.0" layoutY="423.0" mnemonicParsing="false" text="Semester" />
       <TableView fx:id="tableView" layoutX="330.0" layoutY="16.0" prefHeight="328.0" prefWidth="231.0">
         <columns>
-          <TableColumn fx:id="dateCol" prefWidth="111.0" text="Date" />
-          <TableColumn fx:id="attendanceColumn" prefWidth="119.0" text="Attendance/Absent" />
+          <TableColumn fx:id="dateCol" prefWidth="84.0" text="Date" />
+            <TableColumn fx:id="columSubject" prefWidth="75.0" text="Subject" />
+          <TableColumn fx:id="attendanceColumn" prefWidth="83.0" text="Attendance/Absent" />
         </columns>
       </TableView>
    </children>

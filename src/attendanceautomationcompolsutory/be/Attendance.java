@@ -14,10 +14,11 @@ import java.util.Date;
 public class Attendance {
     private Date date;
     private String state;
-
-    public Attendance(Date date, String state) {
+    private String subject;
+    public Attendance(Date date,String subject,String state) {
         this.date = date;
         this.state = state;
+        this.subject= subject;
     }
 
     /**
@@ -46,6 +47,20 @@ public class Attendance {
      */
     public void setState(String state) {
         this.state = state;
+    }
+
+    /**
+     * @return the subject
+     */
+    public String getSubject() {
+        return subject;
+    }
+
+    /**
+     * @param subject the subject to set
+     */
+    public void setSubject(String subject) {
+        this.subject = subject;
     }
     
 }

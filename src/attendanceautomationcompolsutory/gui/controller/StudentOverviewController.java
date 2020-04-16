@@ -76,6 +76,8 @@ public class StudentOverviewController implements Initializable {
     private TableColumn<Attendance, String> attendanceColumn;
     @FXML
     private TableView<?> tableView;
+    @FXML
+    private TableColumn<?, ?> columSubject;
 
     /**
      * Initializes the controller class
@@ -207,6 +209,7 @@ public class StudentOverviewController implements Initializable {
         tableView.setItems(data);
         dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
         attendanceColumn.setCellValueFactory(new PropertyValueFactory<>("state"));
+        columSubject.setCellValueFactory(new PropertyValueFactory<>("subject"));
     }
 
 }
