@@ -5,8 +5,10 @@
  */
 package attendanceautomationcompolsutory.dal;
 
+import attendanceautomationcompolsutory.be.Attendance;
 import java.sql.Connection;
 import java.sql.Date;
+import java.util.List;
 
 /**
  *
@@ -14,4 +16,5 @@ import java.sql.Date;
  */
 public interface IStudentDB {
      public void submitAttendance(int student_id, int lesson_id);
+     public List<Attendance> getAttendanceForAStudent(int student_id, String subject);
 }

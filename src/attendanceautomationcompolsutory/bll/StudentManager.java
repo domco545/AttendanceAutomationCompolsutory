@@ -5,26 +5,37 @@
  */
 package attendanceautomationcompolsutory.bll;
 
+import attendanceautomationcompolsutory.be.Attendance;
 import attendanceautomationcompolsutory.dal.ConnectionPool;
 import attendanceautomationcompolsutory.dal.IStudentDB;
 import attendanceautomationcompolsutory.dal.StudentDB;
 import java.sql.Connection;
 import java.sql.Date;
+import java.util.List;
 
 /**
  *
  * @author narma
  */
 public class StudentManager implements IStudentDB {
+
     ConnectionPool conpool = ConnectionPool.getInstance();
     StudentDB stu = new StudentDB();
 
     @Override
     public void submitAttendance(int student_id, int lesson_id) {
         Connection con = conpool.checkOut();
-        
+
         stu.submitAttendance(con, student_id, lesson_id);
         conpool.checkIn(con);
     }
-    
+
+    @Override
+    public List<Attendance> getAttendanceForAStudent(int student_id, String subject) {
+        Connection con = conpool.checkOut();
+        List<Attendance> a = stu.getAttendanceForAStudent(con, student_id, subject);
+        conpool.checkIn(con);
+        return a;
+    }
+
 }
