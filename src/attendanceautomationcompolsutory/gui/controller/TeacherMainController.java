@@ -7,16 +7,20 @@ package attendanceautomationcompolsutory.gui.controller;
 
 import attendanceautomationcompolsutory.be.Lesson;
 import attendanceautomationcompolsutory.be.LoggedUser;
+import attendanceautomationcompolsutory.be.Student;
 import attendanceautomationcompolsutory.bll.TeacherManager;
 import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,6 +29,9 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
@@ -51,10 +58,17 @@ public class TeacherMainController implements Initializable {
     private Label lblClass;
     @FXML
     private ImageView imgProfile;
+    @FXML
+    private TableView<Student> tableViewStudents;
+    @FXML
+    private TableColumn<Student, String> columnStudent;
+    @FXML
+    private TableColumn<Student, Boolean> columnPresence;
 
     LoggedUser user;
     Lesson currentLesson;
     TeacherManager tm;
+    private ObservableList<Student> students;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -64,7 +78,10 @@ public class TeacherMainController implements Initializable {
         LblEmail.setText(user.email);
         imgProfile.setImage(user.image);
 
-        if(haveLesson() == true){
+        columnStudent.setCellValueFactory(new PropertyValueFactory<>("fullName"));
+        columnPresence.setCellValueFactory(new PropertyValueFactory<>("lessonPresent"));
+
+        if (haveLesson() == true) {
             getStudents();
         }
     }
@@ -135,18 +152,23 @@ public class TeacherMainController implements Initializable {
         LblCurrentDay.setText(formatter.format(date));
 
         String dayOfWeek = new SimpleDateFormat("EEEE", Locale.ENGLISH).format(date);
-        
+
         currentLesson = tm.getLesson(user.id, dayOfWeek);
-        
-        if(currentLesson.getSubject_name().isEmpty() || currentLesson.getSubject_name() == null){
+
+        if (currentLesson.getSubject_name().isEmpty() || currentLesson.getSubject_name() == null) {
             return false;
-        }else{
+        } else {
             lblClass.setText(currentLesson.toString());
             return true;
-        }       
+        }
     }
-    
-    private void getStudents(){
-    
+
+    private void getStudents() {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+        Date date = new Date();
+        String formatedDate = formatter.format(date);
+
+        students = FXCollections.observableArrayList(tm.getStudents(currentLesson.getId(), formatedDate));
+        tableViewStudents.setItems(students);
     }
 }

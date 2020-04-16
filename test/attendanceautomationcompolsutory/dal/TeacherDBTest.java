@@ -22,45 +22,45 @@ public class TeacherDBTest {
     /**
      * Test of getStudentData method, of class TeacherDB.
      */
-    @Test
-    public void testGetStudentData() {
-        System.out.println("getStudentData");
-        TeacherDB instance = new TeacherDB();
-        List<Student> expResult = null;
-        List<Student> result = instance.getStudentData();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+//    @Test
+//    public void testGetStudentData() {
+//        System.out.println("getStudentData");
+//        TeacherDB instance = new TeacherDB();
+//        List<Student> expResult = null;
+//        List<Student> result = instance.getStudentData();
+//        assertEquals(expResult, result);
+//        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+//    }
 
     /**
      * Test of getTeacherMail method, of class TeacherDB.
      */
-    @Test
-    public void testGetTeacherMail() {
-        System.out.println("getTeacherMail");
-        int id = 0;
-        TeacherDB instance = new TeacherDB();
-        String expResult = "";
-        String result = instance.getTeacherMail(id);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+//    @Test
+//    public void testGetTeacherMail() {
+//        System.out.println("getTeacherMail");
+//        int id = 0;
+//        TeacherDB instance = new TeacherDB();
+//        String expResult = "";
+//        String result = instance.getTeacherMail(id);
+//        assertEquals(expResult, result);
+//        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+//    }
 
     /**
      * Test of getTeacherName method, of class TeacherDB.
      */
-    @Test
-    public void testGetTeacherName() {
-        System.out.println("getTeacherName");
-        int id = 1;
-        TeacherDB instance = new TeacherDB();
-        String expResult = "Stegger";
-        String result = instance.getTeacherName(id);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+//    @Test
+//    public void testGetTeacherName() {
+//        System.out.println("getTeacherName");
+//        int id = 1;
+//        TeacherDB instance = new TeacherDB();
+//        String expResult = "Stegger";
+//        String result = instance.getTeacherName(id);
+//        assertEquals(expResult, result);
+//        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+//    }
     
 }

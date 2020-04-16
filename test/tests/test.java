@@ -49,15 +49,15 @@ public class test {
     //
     // @Test
     // public void hello() {}
-     @Test
-    public void testGetTeacherMail()
-    {
-       TeacherDB teacher = new TeacherDB();
-       String exp = "teacher@easv.dk";
-       int id = 42;
-      String result = teacher.getTeacherMail(id);
-        assertEquals(exp,result);
-        
-        
-    }
+//     @Test
+//    public void testGetTeacherMail()
+//    {
+//       TeacherDB teacher = new TeacherDB();
+//       String exp = "teacher@easv.dk";
+//       int id = 42;
+//      String result = teacher.getTeacherMail(id);
+//        assertEquals(exp,result);
+//        
+//        
+//    }
 }
