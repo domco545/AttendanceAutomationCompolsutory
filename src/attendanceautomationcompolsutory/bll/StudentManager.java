@@ -30,12 +30,12 @@ public class StudentManager implements IStudentDB {
         conpool.checkIn(con);
     }
 
-    @Override
+   /* @Override
     public List<Attendance> getAttendanceForAStudent(int student_id, String subject) {
         Connection con = conpool.checkOut();
         List<Attendance> a = stu.getAttendanceForAStudent(con, student_id, subject);
         conpool.checkIn(con);
         return a;
     }
-
+*/
 }

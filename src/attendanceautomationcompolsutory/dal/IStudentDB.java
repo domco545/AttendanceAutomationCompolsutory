@@ -16,5 +16,5 @@ import java.util.List;
  */
 public interface IStudentDB {
      public void submitAttendance(int student_id, int lesson_id);
-     public List<Attendance> getAttendanceForAStudent(int student_id, String subject);
+     //public List<Attendance> getAttendanceForAStudent(int student_id, String subject);
 }

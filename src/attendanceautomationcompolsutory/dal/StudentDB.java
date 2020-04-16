@@ -44,7 +44,7 @@ public class StudentDB {
 
     }
 
-    public List<Attendance> getAttendanceForAStudent(Connection con, int student_id, String subject) {
+   /* public List<Attendance> getAttendanceForAStudent(Connection con, int student_id, String subject) {
         try {
             List<Attendance> dates = new ArrayList();
             String sql = "SELECT Attendance.date , Subject.name FROM Attendance\n"
@@ -70,6 +70,6 @@ public class StudentDB {
             Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
-    }
+    }*/
 
 }
