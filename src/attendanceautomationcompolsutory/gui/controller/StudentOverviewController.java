@@ -102,7 +102,7 @@ public class StudentOverviewController implements Initializable {
         radioBtnWeek.setToggleGroup(toggleGroup);
         radioBtnMonth.setToggleGroup(toggleGroup);
         radioBtnSemester.setToggleGroup(toggleGroup);
-        radioBtnWeek.setSelected(true);
+        radioBtnMonth.setSelected(true);
         toggleGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
             public void changed(ObservableValue<? extends Toggle> ob,
                     Toggle o, Toggle n) {
