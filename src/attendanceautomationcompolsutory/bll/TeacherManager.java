@@ -6,9 +6,12 @@
 package attendanceautomationcompolsutory.bll;
 
 import attendanceautomationcompolsutory.be.Lesson;
+import attendanceautomationcompolsutory.be.Student;
+import attendanceautomationcompolsutory.be.StudentClass;
 import attendanceautomationcompolsutory.dal.ConnectionPool;
 import attendanceautomationcompolsutory.dal.TeacherDB;
 import java.sql.Connection;
+import java.util.ArrayList;
 
 /**
  *
@@ -24,5 +27,26 @@ public class TeacherManager {
         Lesson lesson = teacher.getLesson(con, id, day);
         conpool.checkIn(con);
         return  lesson;
+    }
+    
+    public ArrayList getStudents(int lessonId, String date){
+        Connection con = conpool.checkOut();
+        ArrayList<Student> students = teacher.getStudents(con, lessonId, date);
+        conpool.checkIn(con);
+        return students;
+    }
+    
+    public ArrayList getClasses(){
+        Connection con = conpool.checkOut();
+        ArrayList<StudentClass> studentClasses = teacher.getClasses(con);
+        conpool.checkIn(con);
+        return studentClasses;
+    }
+    
+    public ArrayList getStudentTable(int classId){
+        Connection con = conpool.checkOut();
+        ArrayList<Student> students = teacher.getStudentTable(con, classId);
+        conpool.checkIn(con);
+        return students;  
     }
 }

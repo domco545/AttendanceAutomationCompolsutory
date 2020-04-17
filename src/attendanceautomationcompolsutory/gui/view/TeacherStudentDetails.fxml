@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXTreeTableView?>
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TreeTableColumn?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="500.0" prefWidth="900.0" styleClass="bg" stylesheets="@main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendanceautomationcompolsutory.gui.controller.TeacherStudentDetailsController">
+<AnchorPane prefHeight="500.0" prefWidth="841.0" styleClass="bg" stylesheets="@main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attendanceautomationcompolsutory.gui.controller.TeacherStudentDetailsController">
    <children>
-      <BarChart layoutX="6.0" layoutY="282.0" prefHeight="204.0" prefWidth="360.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="6.0">
+      <BarChart fx:id="barChart" layoutX="6.0" layoutY="282.0" prefHeight="204.0" prefWidth="360.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="6.0">
         <xAxis>
           <CategoryAxis side="BOTTOM" />
         </xAxis>
@@ -21,24 +21,29 @@
           <NumberAxis side="LEFT" />
         </yAxis>
       </BarChart>
-      <Label layoutX="63.0" layoutY="44.0" text="Student Name" AnchorPane.leftAnchor="63.0" AnchorPane.topAnchor="44.0">
+      <Label fx:id="lblName" layoutX="63.0" layoutY="44.0" text="Student Name" AnchorPane.leftAnchor="63.0" AnchorPane.topAnchor="44.0">
          <font>
             <Font size="34.0" />
          </font>
       </Label>
-      <JFXButton layoutX="94.0" layoutY="238.0" text="Week" AnchorPane.leftAnchor="94.0" />
-      <JFXButton layoutX="33.0" layoutY="238.0" prefWidth="52.0" text="Day" AnchorPane.leftAnchor="33.0" />
-      <JFXButton layoutX="157.0" layoutY="238.0" text="Month" AnchorPane.leftAnchor="157.0" />
-      <JFXButton layoutX="224.0" layoutY="238.0" text="Semester" AnchorPane.leftAnchor="224.0" />
-      <JFXButton layoutX="294.0" layoutY="238.0" text="Total" AnchorPane.leftAnchor="294.0" />
+      <JFXButton fx:id="btnWeek" layoutX="94.0" layoutY="238.0" onAction="#changeWeek" text="Week" AnchorPane.leftAnchor="94.0" />
+      <JFXButton fx:id="btnDay" layoutX="33.0" layoutY="238.0" onAction="#changeDay" prefWidth="52.0" text="Day" AnchorPane.leftAnchor="33.0" />
+      <JFXButton fx:id="btnMonth" layoutX="157.0" layoutY="238.0" onAction="#chngeMonth" text="Month" AnchorPane.leftAnchor="157.0" />
+      <JFXButton fx:id="btnSemester" layoutX="224.0" layoutY="238.0" onAction="#changeSemester" text="Semester" AnchorPane.leftAnchor="224.0" />
+      <JFXButton fx:id="btnTotal" layoutX="308.0" layoutY="238.0" onAction="#changeTotal" text="Total" AnchorPane.leftAnchor="308.0" />
       <Label layoutX="71.0" layoutY="206.0" text="Student Name's Attendance for given period" />
-      <JFXTreeTableView layoutX="515.0" layoutY="22.0" prefHeight="193.0" prefWidth="270.0" AnchorPane.rightAnchor="114.60000000000002" AnchorPane.topAnchor="22.0">
-         <columns>
-            <TreeTableColumn prefWidth="75.0" text="Column X" />
-            <TreeTableColumn prefWidth="75.0" text="Column X" />
-         </columns>
-      </JFXTreeTableView>
-      <PieChart layoutX="521.0" layoutY="252.0" prefHeight="204.0" prefWidth="342.0" AnchorPane.bottomAnchor="44.0" AnchorPane.rightAnchor="36.60000000000002" />
+      <PieChart fx:id="pieChart" layoutX="521.0" layoutY="252.0" prefHeight="204.0" prefWidth="342.0" AnchorPane.bottomAnchor="44.0" AnchorPane.rightAnchor="36.60000000000002" />
       <JFXButton fx:id="homeBack" layoutX="14.0" layoutY="14.0" onAction="#homeBack" text="Back" />
+      <TableView fx:id="tableViewPresence" layoutX="461.0" layoutY="29.0" prefHeight="204.0" prefWidth="318.0">
+        <columns>
+          <TableColumn fx:id="columnName" prefWidth="75.0" text="Name" />
+          <TableColumn fx:id="columnDate" prefWidth="75.0" text="Date" />
+            <TableColumn fx:id="columnPresent" prefWidth="75.0" text="Present" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <JFXButton fx:id="btnChangePresent" layoutX="388.0" layoutY="57.0" onAction="#changePresent" text="Change" />
    </children>
 </AnchorPane>

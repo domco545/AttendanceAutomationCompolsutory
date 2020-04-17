@@ -54,7 +54,6 @@ public class StudentOverviewController implements Initializable {
     private MenuItem weeks = new MenuItem("weeks");
     private MenuItem months = new MenuItem("months");
     private MenuItem semesters = new MenuItem("semesters");
-    @FXML
     private PieChart pieChart;
     @FXML
     private Button preBt;
@@ -62,11 +61,9 @@ public class StudentOverviewController implements Initializable {
     private Button nextBt;
     @FXML
     private ComboBox<String> comboxSubject;
-    @FXML
     private RadioButton radioBtnWeek;
     @FXML
     private RadioButton radioBtnMonth;
-    @FXML
     private RadioButton radioBtnSemester;
     private String periodType;
     private int periodValue;
@@ -99,10 +96,10 @@ public class StudentOverviewController implements Initializable {
         }
         comboxSubject.getItems().addAll(subjectNames);
         ToggleGroup toggleGroup = new ToggleGroup();
-        radioBtnWeek.setToggleGroup(toggleGroup);
+//        radioBtnWeek.setToggleGroup(toggleGroup);
         radioBtnMonth.setToggleGroup(toggleGroup);
-        radioBtnSemester.setToggleGroup(toggleGroup);
-        radioBtnWeek.setSelected(true);
+    //    radioBtnSemester.setToggleGroup(toggleGroup);
+        radioBtnMonth.setSelected(true);
         toggleGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
             public void changed(ObservableValue<? extends Toggle> ob,
                     Toggle o, Toggle n) {
@@ -119,12 +116,7 @@ public class StudentOverviewController implements Initializable {
             }
         });
 
-        //Piechart
-        ObservableList<PieChart.Data> pieChartData
-                = FXCollections.observableArrayList(
-                        new PieChart.Data("Marked Attendance", 34),
-                        new PieChart.Data("Absence", 66));
-        pieChart.setData(pieChartData);
+        
     }
 
     @FXML
@@ -190,19 +182,11 @@ public class StudentOverviewController implements Initializable {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
         subjectName = comboxSubject.getValue();
-        if (radioBtnWeek.isSelected()) {
-            periodType = radioBtnWeek.getText();
-            periodValue = cal.get(Calendar.WEEK_OF_YEAR);
-        } else if (radioBtnMonth.isSelected()) {
+       if (radioBtnMonth.isSelected()) {
             periodType = radioBtnMonth.getText();
             periodValue = cal.get(Calendar.MONTH) + 1;
-        } else if (radioBtnSemester.isSelected()) {
-            periodType = radioBtnSemester.getText();
-            periodValue = 0;
-        }
-        System.out.println(subjectName);
-        System.out.println(periodType);
-        System.out.println(periodValue);
+        } 
+      
         AttendanceDB attendanceDB = new AttendanceDB();
         ArrayList<Attendance> attendances = attendanceDB.getAttendanceByFilter(subjectName, periodType, periodValue);
         ObservableList data = FXCollections.observableList(attendances);

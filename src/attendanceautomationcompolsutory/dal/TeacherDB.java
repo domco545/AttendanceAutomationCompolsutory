@@ -7,17 +7,13 @@ package attendanceautomationcompolsutory.dal;
 
 import attendanceautomationcompolsutory.be.Lesson;
 import attendanceautomationcompolsutory.be.Student;
-import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
-import com.microsoft.sqlserver.jdbc.SQLServerException;
+import attendanceautomationcompolsutory.be.StudentClass;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.sql.Time;
-import java.util.AbstractList;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -26,30 +22,6 @@ import java.util.logging.Logger;
  * @author narma
  */
 public class TeacherDB {
-
-    DBConnection db = new DBConnection();
-
-    public List<Student> getStudentData() {
-        try (Connection con = db.getConnection()) {
-            List<Student> allstudents = new ArrayList();
-            String sql = "SELECT Student.id , Student.firstName , Student.lastName FROM Student";
-            Statement s = con.createStatement();
-            ResultSet r = s.executeQuery(sql);
-            while (r.next()) {
-                int id = r.getInt("id");
-                String fname = r.getString("firstName");
-                String lname = r.getString("lastName");
-                Student student = new Student(id, fname, lname);
-                allstudents.add(student);
-            }
-            return allstudents;
-        } catch (SQLServerException ex) {
-            Logger.getLogger(TeacherDB.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(TeacherDB.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
 
     public Lesson getLesson(Connection con, int id, String day) {
         try {
@@ -70,11 +42,86 @@ public class TeacherDB {
                 Time start = rs.getTime("start_time");
                 Time end = rs.getTime("end_time");
                 lesson = new Lesson(lessonId, name, start, end);
-            }else{
+            } else {
                 lesson = new Lesson();
             }
-            
+
             return lesson;
+        } catch (SQLException ex) {
+            Logger.getLogger(TeacherDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public ArrayList getStudents(Connection con, int lessonId, String date) {
+        try {
+            ArrayList<Student> students = new ArrayList();
+            String sql = "SELECT Attendance.*, Student.id, Student.fName, Student.lName FROM Attendance"
+                    + "JOIN Person ON Attendance.student_id = Person.id"
+                    + "WHERE Attendance.lesson_id = ?, Attendance.date = ?";
+
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.setInt(1, lessonId);
+            pstmt.setString(2, date);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                Integer id = rs.getInt("id");
+                String fName = rs.getString("fName");
+                String lName = rs.getString("lName");
+                boolean currentLesson = rs.getBoolean("present");
+                Student student = new Student(id, fName, lName, currentLesson);
+                students.add(student);
+            }
+            return students;
+        } catch (SQLException ex) {
+            Logger.getLogger(TeacherDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    public ArrayList getClasses(Connection con){
+        try {
+            ArrayList<StudentClass> studentClasses = new ArrayList();
+            String sql = "SELECT * FROM Class";
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            ResultSet rs = pstmt.executeQuery();
+            
+            while(rs.next()){
+                Integer id = rs.getInt("id");
+                String name = rs.getString("name");
+                StudentClass studentClass = new StudentClass(id, name);
+                studentClasses.add(studentClass);
+            }
+            
+            return studentClasses;
+        } catch (SQLException ex) {
+            Logger.getLogger(TeacherDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    public ArrayList getStudentTable(Connection con, int classId){
+        try {
+            ArrayList<Student> students = new ArrayList();
+            String sql = "SELECT Person.id, Person.fname, Person.lname FROM Class"
+                    + "JOIN Student ON Class.id = Student.class_id"
+                    + "JOIN Person ON Student.person_id = Person.id"
+                    + "WHERE Class.id = ?";
+            
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.setInt(1, classId);
+            ResultSet rs = pstmt.executeQuery();
+            
+            while(rs.next()){
+                Integer id = rs.getInt("id");
+                String fname = rs.getString("fname");
+                String lname = rs.getString("lname");
+                Student student = new Student(id, fname, lname);
+                students.add(student);
+            }
+            
+            return students;
         } catch (SQLException ex) {
             Logger.getLogger(TeacherDB.class.getName()).log(Level.SEVERE, null, ex);
         }
