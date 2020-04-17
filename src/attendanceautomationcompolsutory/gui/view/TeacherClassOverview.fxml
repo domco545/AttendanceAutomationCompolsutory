@@ -20,5 +20,6 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
+      <JFXButton layoutX="286.0" layoutY="335.0" onAction="#btnDetail" text="Detail" />
    </children>
 </AnchorPane>

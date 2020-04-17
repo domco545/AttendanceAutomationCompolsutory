@@ -95,4 +95,16 @@ public class TeacherClassOverviewController implements Initializable {
         students = FXCollections.observableArrayList(tm.getStudentTable(choiceBoxClass.getSelectionModel().getSelectedItem().getId()));
         tableViewStudents.setItems(students);
     }
+
+    @FXML
+    private void btnDetail(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/attendanceautomationcompolsutory/gui/view/TeacherStudentDetails.fxml"));
+            Parent root = loader.load();
+            TeacherStudentDetailsController tsdc = loader.getController();
+            tsdc.setStudent(tableViewStudents.getSelectionModel().getSelectedItem());
+        } catch (IOException ex) {
+            Logger.getLogger(TeacherClassOverviewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
