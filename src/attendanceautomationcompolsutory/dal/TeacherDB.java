@@ -7,6 +7,7 @@ package attendanceautomationcompolsutory.dal;
 
 import attendanceautomationcompolsutory.be.Lesson;
 import attendanceautomationcompolsutory.be.Student;
+import attendanceautomationcompolsutory.be.StudentClass;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -72,6 +73,54 @@ public class TeacherDB {
                 Student student = new Student(id, fName, lName, currentLesson);
                 students.add(student);
             }
+            return students;
+        } catch (SQLException ex) {
+            Logger.getLogger(TeacherDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    public ArrayList getClasses(Connection con){
+        try {
+            ArrayList<StudentClass> studentClasses = new ArrayList();
+            String sql = "SELECT * FROM Class";
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            ResultSet rs = pstmt.executeQuery();
+            
+            while(rs.next()){
+                Integer id = rs.getInt("id");
+                String name = rs.getString("name");
+                StudentClass studentClass = new StudentClass(id, name);
+                studentClasses.add(studentClass);
+            }
+            
+            return studentClasses;
+        } catch (SQLException ex) {
+            Logger.getLogger(TeacherDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    public ArrayList getStudentTable(Connection con, int classId){
+        try {
+            ArrayList<Student> students = new ArrayList();
+            String sql = "SELECT Person.id, Person.fname, Person.lname FROM Class"
+                    + "JOIN Student ON Class.id = Student.class_id"
+                    + "JOIN Person ON Student.person_id = Person.id"
+                    + "WHERE Class.id = ?";
+            
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.setInt(1, classId);
+            ResultSet rs = pstmt.executeQuery();
+            
+            while(rs.next()){
+                Integer id = rs.getInt("id");
+                String fname = rs.getString("fname");
+                String lname = rs.getString("lname");
+                Student student = new Student(id, fname, lname);
+                students.add(student);
+            }
+            
             return students;
         } catch (SQLException ex) {
             Logger.getLogger(TeacherDB.class.getName()).log(Level.SEVERE, null, ex);
