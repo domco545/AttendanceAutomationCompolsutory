@@ -16,9 +16,9 @@
          </image>
       </ImageView>
       <JFXTextField fx:id="txtName" layoutX="160.0" layoutY="137.0" prefHeight="25.0" prefWidth="179.0" promptText="Email" />
-      <JFXRadioButton fx:id="radioRemember" layoutX="233.0" layoutY="254.0" text="Remember me" />
-      <JFXButton fx:id="btnLogin" layoutX="160.0" layoutY="216.0" onAction="#actionLogin" text="Login" />
       <JFXPasswordField fx:id="txtPass" layoutX="160.0" layoutY="180.0" prefHeight="25.0" prefWidth="179.0" promptText="Password" />
+      <JFXButton fx:id="btnLogin" layoutX="160.0" layoutY="216.0" onAction="#actionLogin" text="Login" />
       <JFXButton layoutX="233.0" layoutY="216.0" onAction="#actionForgotpass" text="Forgot password" />
+      <JFXRadioButton fx:id="radioRemember" layoutX="233.0" layoutY="254.0" text="Remember me" />
    </children>
 </AnchorPane>
