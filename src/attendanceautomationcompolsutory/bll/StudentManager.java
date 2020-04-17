@@ -23,10 +23,10 @@ public class StudentManager implements IStudentDB {
     StudentDB stu = new StudentDB();
 
     @Override
-    public void submitAttendance(int student_id, int lesson_id) {
+    public void attendanceDefault(int student_id, int lesson_id, int present) {
         Connection con = conpool.checkOut();
 
-        stu.submitAttendance(con, student_id, lesson_id);
+        stu.attendanceDefault(con, student_id, lesson_id,present);
         conpool.checkIn(con);
     }
 
@@ -38,4 +38,12 @@ public class StudentManager implements IStudentDB {
         return a;
     }
 */
+
+    @Override
+    public void confirmAttendance(int present, int student_id, int lesson_id) {
+        Connection con = conpool.checkOut();
+
+        stu.confirmAttendance(con,present, student_id,lesson_id);
+        conpool.checkIn(con);
+    }
 }

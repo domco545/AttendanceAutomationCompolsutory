@@ -91,11 +91,16 @@ public class StudentMainController implements Initializable {
         lblName.setText(user.fNmae + " " + user.lName);
         lblEmail.setText(user.email);
         imgViewProfile.setImage(user.image);
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+        
+        
 
         checkVPN();
         getCurrentDate();
         initSubjectLabel();
-
+       
+        
+        
         try {
             getDailySchedule();
         } catch (ParseException ex) {
@@ -186,14 +191,14 @@ public class StudentMainController implements Initializable {
         List<Lesson> lessons = bll.getDailyLessons(user.id, dayOfWeek);
         if (lessons.size()==1 &&!btnSubjectOne.getText().isEmpty() && btnSubjectOne.isSelected()) {
 
-            studentbll.submitAttendance(user.id,lessons.get(0).getId());
+            studentbll.confirmAttendance(1,user.id,lessons.get(0).getId());
             btnSubjectOne.setDisable(true);
             errorlabel.setText("You successfully submitted your attendance");
         }
         else if (lessons.size()==2 && !btnSubjectOne.getText().isEmpty() && btnSubjectOne.isSelected() && !btnSubjectTwo.getText().isEmpty() && btnSubjectTwo.isSelected())
         {
-            studentbll.submitAttendance(user.id,lessons.get(0).getId());
-            studentbll.submitAttendance(user.id,lessons.get(1).getId());
+            studentbll.confirmAttendance(1,user.id,lessons.get(0).getId());
+            studentbll.confirmAttendance(1,user.id,lessons.get(1).getId());
             btnSubjectOne.setDisable(true);
             btnSubjectTwo.setDisable(true);
             errorlabel.setText("You successfully submitted your attendance");
@@ -278,12 +283,15 @@ public class StudentMainController implements Initializable {
             btnSubjectFour.setDisable(true);
         } else if (lessons.size() == 1) {
             btnSubjectOne.setText(String.valueOf(lessons.get(0)));
+            studentbll.attendanceDefault(user.id, lessons.get(0).getId(), 0);
             btnSubjectTwo.setDisable(true);
             btnSubjectThree.setDisable(true);
             btnSubjectFour.setDisable(true);
         } else if (lessons.size() == 2) {
             btnSubjectOne.setText(String.valueOf(lessons.get(0)));
             btnSubjectTwo.setText(String.valueOf(lessons.get(1)));
+            studentbll.attendanceDefault(user.id, lessons.get(0).getId(), 0);
+            studentbll.attendanceDefault(user.id, lessons.get(1).getId(), 0);
             btnSubjectThree.setDisable(true);
             btnSubjectFour.setDisable(true);
         } else if (lessons.size() == 3) {
@@ -294,4 +302,5 @@ public class StudentMainController implements Initializable {
         }
 
     }
+    
 }
