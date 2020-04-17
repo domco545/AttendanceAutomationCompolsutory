@@ -108,20 +108,12 @@ public class TeacherMainController implements Initializable {
     @FXML
     private void loadStudentDetail(ActionEvent event) {
         try {
-            FXMLLoader loader;
-            Parent root = null;
-            // TO DO 
-            // Load the selected student's overview page
-            loader = new FXMLLoader(getClass().getResource("/attendanceautomationcompolsutory/gui/view/TeacherStudentDetails.fxml"));
-            root = loader.load();
-
-            Scene scene = new Scene(root);
-
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(scene);
-            stage.show();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/attendanceautomationcompolsutory/gui/view/TeacherStudentDetails.fxml"));
+            Parent root = loader.load();
+            TeacherStudentDetailsController tsdc = loader.getController();
+            tsdc.setStudent(tableViewStudents.getSelectionModel().getSelectedItem());
         } catch (IOException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TeacherClassOverviewController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

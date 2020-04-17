@@ -29,7 +29,14 @@ public class Student {
         this.fname.set(fname);
         this.lname.set(lname);
         this.lessonPresent.set(lessonPresent);
-        this.fullName.set(fname+" "+lname);
+        this.fullName.set(fname + " " + lname);
+    }
+
+    public Student(int id, String fname, String lname) {
+        this.id.set(id);
+        this.fname.set(fname);
+        this.lname.set(lname);
+        this.fullName.set(fname + " " + lname);
     }
 
     public String getLname() {
